@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KartController : MonoBehaviour
 {
@@ -40,6 +41,9 @@ public class KartController : MonoBehaviour
 	public float MAX_BOOST = 10;
 	public float Gravity;
 
+	[Header("UI")]
+	public Slider boostSlider;
+
 	private float BoostSpeed = 1f;
 
 	private float moveInput;
@@ -50,6 +54,8 @@ public class KartController : MonoBehaviour
 	private bool isGroundL = false;
 	private bool isGroundR = false;
 
+	[HideInInspector]
+	public float SpeedCheck;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -60,6 +66,7 @@ public class KartController : MonoBehaviour
 		moveInput = Input.GetAxis("Vertical");   // ↑↓ 입력값
 		turnInput = Input.GetAxis("Horizontal"); // ←→ 입력값
 
+		boostSlider.value = boostGauge / 100;
 
 		// 드리프트 시작/종료
 		if (Input.GetKeyDown(KeyCode.LeftShift))
