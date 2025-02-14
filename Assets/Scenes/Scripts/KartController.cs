@@ -31,6 +31,7 @@ public class KartController : MonoBehaviour
 	public TrailRenderer[] boost;
 	public CameraFollowPlayer cmf;
 	public GameObject BoostEffect;
+	public GameObject HitEffect;
 
 	[Header("Rigidbody Property")]
 	public float MoveSpeed;
@@ -57,6 +58,8 @@ public class KartController : MonoBehaviour
 
 	[HideInInspector]
 	public float SpeedCheck;
+
+	private Vector3 moveSpeed;
 	void Start()
 	{
 		rb = GetComponent<Rigidbody>();
@@ -84,13 +87,13 @@ public class KartController : MonoBehaviour
 		{
 			if (isBoosting)
 			{
-				boostGauge += Time.deltaTime * backRightWheel.motorTorque / 100;
+				boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
 			}
 			else
 			{
 				if (boostGauge <= 100f)
 				{
-					boostGauge += Time.deltaTime * backRightWheel.motorTorque / 85;
+					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 85;
 				}
 			}
 		}
@@ -114,7 +117,8 @@ public class KartController : MonoBehaviour
 		{
 			StartCoroutine(Boost());
 		}
-		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * backLeftWheel.motorTorque / 100;
+
+		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
 	}
 	private void FixedUpdate()
 	{
@@ -140,8 +144,8 @@ public class KartController : MonoBehaviour
 	//Rigidbody 움직임 관리
 	void RigidMovement()
 	{
-		Vector3 moveForce = transform.forward * moveInput * BoostSpeed * MoveSpeed;
-		rb.AddForce(moveForce);
+		moveSpeed = transform.forward * moveInput * BoostSpeed * MoveSpeed;
+		rb.AddForce(moveSpeed);
 
 		transform.Rotate(Vector3.up * turnInput * SteerAngle * Time.fixedDeltaTime);
 
@@ -264,24 +268,41 @@ public class KartController : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
 		ContactPoint contact = collision.contacts[0];
+
+		Vector3 pos = contact.point;
+
 		Vector3 normal = contact.normal;
 		Vector3 collisionDirection = -normal;
 
 		if(Vector3.Dot(collisionDirection, new Vector3(0,0,-1)) > 0.5f)
 		{
-			Debug.Log("전면 충돌");
+			AdjustSpeed(pos);
 		}
 		else if(Vector3.Dot(collisionDirection, new Vector3(-1,0,0)) > 0.5f)
 		{
-			Debug.Log("옆면 충돌(왼쪽)");
+			AdjustSpeed(pos);
 		}
 		else if (Vector3.Dot(collisionDirection, new Vector3(1, 0, 0)) > 0.5f)
 		{
-			Debug.Log("옆면 충돌(오른쪽)");
+			AdjustSpeed(pos);
 		}
 		else if (Vector3.Dot(collisionDirection, new Vector3(0, 0, 1)) > 0.5f)
 		{
-			Debug.Log("후면 충돌");
+			AdjustSpeed(pos, true);
+		}
+	}
+
+	//지정 방향으로 속도 조절
+	void AdjustSpeed(Vector3 collisionDirection, bool isIncrease = false)
+	{
+		if (isIncrease)
+		{
+			rb.AddForce(rb.velocity.normalized * 100f, ForceMode.Impulse);
+		}
+		else
+		{
+			Destroy(Instantiate(HitEffect, collisionDirection, Quaternion.identity), 0.4f);
+			rb.AddForce(-rb.velocity.normalized * 100f, ForceMode.Impulse);
 		}
 	}
 }
