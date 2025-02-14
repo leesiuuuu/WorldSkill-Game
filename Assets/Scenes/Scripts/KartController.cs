@@ -43,6 +43,7 @@ public class KartController : MonoBehaviour
 
 	[Header("UI")]
 	public Slider boostSlider;
+	public Text boostText;
 
 	private float BoostSpeed = 1f;
 
@@ -51,8 +52,8 @@ public class KartController : MonoBehaviour
 	private bool isBoosting = false;
 	private bool isDrifting = false;
 
-	private bool isGroundL = false;
-	private bool isGroundR = false;
+//	private bool isGroundL = false;
+//	private bool isGroundR = false;
 
 	[HideInInspector]
 	public float SpeedCheck;
@@ -96,7 +97,6 @@ public class KartController : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
-			rb.velocity = Vector3.zero;
 			frontLeftWheel.brakeTorque = 5000f;
 			frontRightWheel.brakeTorque = 5000f;
 			backLeftWheel.brakeTorque = 5000f;
@@ -136,6 +136,8 @@ public class KartController : MonoBehaviour
 		UpdateWheelMeshes();
 		RigidMovement();
 	}
+
+	//Rigidbody 움직임 관리
 	void RigidMovement()
 	{
 		Vector3 moveForce = transform.forward * moveInput * BoostSpeed * MoveSpeed;
@@ -148,7 +150,11 @@ public class KartController : MonoBehaviour
 		rb.velocity = Vector3.Lerp(rb.velocity.normalized, transform.forward, Traction * Time.fixedDeltaTime) * rb.velocity.magnitude;
 
 		rb.AddForce(Vector3.down * Gravity, ForceMode.Acceleration);
+
+		boostText.text = (rb.velocity.magnitude * 7).ToString("000") + " km / h";
 	}
+
+	//부스터
 	IEnumerator Boost()
 	{
 		isBoosting = true;
@@ -168,6 +174,7 @@ public class KartController : MonoBehaviour
 		BoostSpeed = 1f;
 	}
 
+	//매쉬 업데이트
 	void UpdateWheelMeshes()
 	{
 		UpdateWheelPosition(frontLeftWheel, frontLeftMesh);
@@ -176,6 +183,7 @@ public class KartController : MonoBehaviour
 		UpdateWheelPosition(backRightWheel, backRightMesh);
 	}
 
+	//바퀴 휠 업데이트
 	void UpdateWheelPosition(WheelCollider col, Transform mesh)
 	{
 		Vector3 pos;
@@ -185,6 +193,7 @@ public class KartController : MonoBehaviour
 		mesh.rotation = rot;
 	}
 
+	//바퀴로 움직임 관리
 	void ApplyAcceleration()
 	{
 		float motorTorque = moveInput * maxMotorTorque;
@@ -193,6 +202,7 @@ public class KartController : MonoBehaviour
 		backRightWheel.motorTorque = motorTorque;
 	}
 
+	//앞바퀴 각도 조절
 	void ApplySteering()
 	{
 		float steer = turnInput * maxSteerAngle;
@@ -206,6 +216,7 @@ public class KartController : MonoBehaviour
 		frontRightWheel.steerAngle = steer;
 	}
 
+	//드리프트 시 앞바퀴 각도 조절
 	void ApplyDriftSteering()
 	{
 		if (isDrifting)
@@ -218,23 +229,28 @@ public class KartController : MonoBehaviour
 		}
 	}
 
+	//드리프트 상태 시작
 	void StartDrift()
 	{
 		isDrifting = true;
 		AdjustWheelFriction(driftFactor);
 	}
 
+	//드리프트 상태 끝내기
 	void EndDrift()
 	{
 		isDrifting = false;
 		AdjustWheelFriction(1.5f); // 마찰력 원래대로 복구
 	}
+
+	//스키드 상태 조절
 	void SetSkid(bool _skid, int index)
 	{
 		if (isDrifting) skid[index].emitting = _skid;
 		else skid[index].emitting = false;
 	}
 
+	//휠 마찰력 조절
 	void AdjustWheelFriction(float factor)
 	{
 		WheelFrictionCurve friction = backLeftWheel.sidewaysFriction;
@@ -242,5 +258,30 @@ public class KartController : MonoBehaviour
 
 		backLeftWheel.sidewaysFriction = friction;
 		backRightWheel.sidewaysFriction = friction;
+	}
+
+	//충돌 방향 감지
+	private void OnCollisionEnter(Collision collision)
+	{
+		ContactPoint contact = collision.contacts[0];
+		Vector3 normal = contact.normal;
+		Vector3 collisionDirection = -normal;
+
+		if(Vector3.Dot(collisionDirection, new Vector3(0,0,-1)) > 0.5f)
+		{
+			Debug.Log("전면 충돌");
+		}
+		else if(Vector3.Dot(collisionDirection, new Vector3(-1,0,0)) > 0.5f)
+		{
+			Debug.Log("옆면 충돌(왼쪽)");
+		}
+		else if (Vector3.Dot(collisionDirection, new Vector3(1, 0, 0)) > 0.5f)
+		{
+			Debug.Log("옆면 충돌(오른쪽)");
+		}
+		else if (Vector3.Dot(collisionDirection, new Vector3(0, 0, 1)) > 0.5f)
+		{
+			Debug.Log("후면 충돌");
+		}
 	}
 }
