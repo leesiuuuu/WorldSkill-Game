@@ -37,6 +37,7 @@ public class BezierFollow : MonoBehaviour
 	{
 		rb.AddForce(Vector3.down * Gravity, ForceMode.Acceleration);
 	}
+
 	private IEnumerator GoByTheRoute(int routeNumber)
     {
         coroutineAllowed = false;
@@ -80,4 +81,9 @@ public class BezierFollow : MonoBehaviour
 
         coroutineAllowed = true;
     }
+
+	private void OnCollisionEnter(Collision collision)
+	{
+		
+	}
 }

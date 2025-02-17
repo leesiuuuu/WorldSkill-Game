@@ -87,13 +87,13 @@ public class KartController : MonoBehaviour
 		{
 			if (isBoosting)
 			{
-				boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
+				boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 50;
 			}
 			else
 			{
 				if (boostGauge <= 100f)
 				{
-					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 85;
+					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 90;
 				}
 			}
 		}
@@ -118,7 +118,7 @@ public class KartController : MonoBehaviour
 			StartCoroutine(Boost());
 		}
 
-		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
+		if(moveInput != 0 && boostGauge <= 100 && !isBoosting) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
 	}
 	private void FixedUpdate()
 	{
@@ -267,6 +267,7 @@ public class KartController : MonoBehaviour
 	//충돌 방향 감지
 	private void OnCollisionEnter(Collision collision)
 	{
+
 		ContactPoint contact = collision.contacts[0];
 
 		Vector3 pos = contact.point;
@@ -276,18 +277,26 @@ public class KartController : MonoBehaviour
 
 		if(Vector3.Dot(collisionDirection, new Vector3(0,0,-1)) > 0.5f)
 		{
+			Debug.DrawRay(contact.point, normal, Color.red, 2f); // 법선 방향
+			Debug.DrawRay(contact.point, collisionDirection, Color.green, 2f); // 충돌 방향
 			AdjustSpeed(pos);
 		}
 		else if(Vector3.Dot(collisionDirection, new Vector3(-1,0,0)) > 0.5f)
 		{
+			Debug.DrawRay(contact.point, normal, Color.red, 2f); // 법선 방향
+			Debug.DrawRay(contact.point, collisionDirection, Color.green, 2f); // 충돌 방향
 			AdjustSpeed(pos);
 		}
 		else if (Vector3.Dot(collisionDirection, new Vector3(1, 0, 0)) > 0.5f)
 		{
+			Debug.DrawRay(contact.point, normal, Color.red, 2f); // 법선 방향
+			Debug.DrawRay(contact.point, collisionDirection, Color.green, 2f); // 충돌 방향
 			AdjustSpeed(pos);
 		}
 		else if (Vector3.Dot(collisionDirection, new Vector3(0, 0, 1)) > 0.5f)
 		{
+			Debug.DrawRay(contact.point, normal, Color.red, 2f); // 법선 방향
+			Debug.DrawRay(contact.point, collisionDirection, Color.green, 2f); // 충돌 방향
 			AdjustSpeed(pos, true);
 		}
 	}
@@ -295,14 +304,17 @@ public class KartController : MonoBehaviour
 	//지정 방향으로 속도 조절
 	void AdjustSpeed(Vector3 collisionDirection, bool isIncrease = false)
 	{
+
 		if (isIncrease)
 		{
-			rb.AddForce(rb.velocity.normalized * 100f, ForceMode.Impulse);
+			rb.AddForce(rb.velocity.normalized * 500f, ForceMode.Impulse);
 		}
 		else
 		{
-			Destroy(Instantiate(HitEffect, collisionDirection, Quaternion.identity), 0.4f);
-			rb.AddForce(-rb.velocity.normalized * 100f, ForceMode.Impulse);
+			var n = Instantiate(HitEffect, collisionDirection, Quaternion.identity);
+			rb.AddForce(-rb.velocity.normalized * 500f, ForceMode.Impulse);
+			rb.AddForce(-rb.transform.forward * 50f);
+			Destroy(n, 0.4f);
 		}
 	}
 }
