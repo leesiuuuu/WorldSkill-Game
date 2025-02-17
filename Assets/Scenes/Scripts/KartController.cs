@@ -93,7 +93,7 @@ public class KartController : MonoBehaviour
 			{
 				if (boostGauge <= 100f)
 				{
-					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 90;
+					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
 				}
 			}
 		}

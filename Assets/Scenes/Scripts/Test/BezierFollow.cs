@@ -23,6 +23,7 @@ public class BezierFollow : MonoBehaviour
 
 	private void Start()
 	{
+        GameSystem.instance.SaveItemData();
         rb = GetComponent<Rigidbody>();
 		routeToGo = 0;
         tParam = 0f;
