@@ -118,7 +118,7 @@ public class KartController : MonoBehaviour
 			StartCoroutine(Boost());
 		}
 
-		if(moveInput != 0 && boostGauge <= 100 && !isBoosting) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
+		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
 	}
 	private void FixedUpdate()
 	{

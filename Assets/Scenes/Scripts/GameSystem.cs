@@ -50,6 +50,7 @@ public class GameSystem
 		engine = Engine.Normal;
 		transmission = Transmission.Normal;
 		wheeltype = WheelType.Normal;
+		SaveItemData();
 	}
 	public void SaveItemData()
 	{
@@ -87,6 +88,7 @@ public class GameSystem
 
 		Debug.Log($"[SetItemData] {enumType.Name} 변경 : {enumvalue}");
 	}
+
 	/// <summary>
 	/// 설정된 열거형 값을 반환해주는 함수
 	/// </summary>
