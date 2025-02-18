@@ -1,8 +1,11 @@
 using System.Collections;
+using System.Runtime.CompilerServices;
+using UnityEditor;
+using UnityEditor.Build.Content;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class KartController : MonoBehaviour
+public class KartController : TerrainDetect
 {
 	Rigidbody rb;
 
@@ -46,6 +49,9 @@ public class KartController : MonoBehaviour
 	public Slider boostSlider;
 	public Text boostText;
 
+	[Header("Game Management")]
+	public GameManage GameManage;
+
 	private float BoostSpeed = 1f;
 
 	private float moveInput;
@@ -53,14 +59,11 @@ public class KartController : MonoBehaviour
 	private bool isBoosting = false;
 	private bool isDrifting = false;
 
-//	private bool isGroundL = false;
-//	private bool isGroundR = false;
-
 	[HideInInspector]
 	public float SpeedCheck;
 
 	private Vector3 moveSpeed;
-	void Start()
+	void Awake()
 	{
 		rb = GetComponent<Rigidbody>();
 	}
@@ -120,6 +123,15 @@ public class KartController : MonoBehaviour
 
 		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
 	}
+	public void Startboost()
+	{
+		frontLeftWheel.motorTorque = 100f;
+		frontRightWheel.motorTorque = 100f;
+		backLeftWheel.motorTorque = 100f;
+		backRightWheel.motorTorque = 100f;
+		rb.AddForce(Vector3.right * 40, ForceMode.VelocityChange);
+	}
+
 	private void FixedUpdate()
 	{
 		if (backLeftWheel.isGrounded)
@@ -145,7 +157,8 @@ public class KartController : MonoBehaviour
 	void RigidMovement()
 	{
 		moveSpeed = transform.forward * moveInput * BoostSpeed * MoveSpeed;
-		rb.AddForce(moveSpeed);
+		if (GetTerrainAtPosition(transform.position) == 1) rb.AddForce(-moveSpeed * 0.5f);
+		else rb.AddForce(moveSpeed);
 
 		transform.Rotate(Vector3.up * turnInput * SteerAngle * Time.fixedDeltaTime);
 
@@ -159,7 +172,7 @@ public class KartController : MonoBehaviour
 	}
 
 	//부스터
-	IEnumerator Boost()
+	public IEnumerator Boost()
 	{
 		isBoosting = true;
 		BoostSpeed = MAX_BOOST;

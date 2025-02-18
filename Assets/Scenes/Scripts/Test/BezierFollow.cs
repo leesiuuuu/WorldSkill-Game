@@ -23,7 +23,6 @@ public class BezierFollow : MonoBehaviour
 
 	private void Start()
 	{
-        GameSystem.instance.SaveItemData();
         rb = GetComponent<Rigidbody>();
 		routeToGo = 0;
         tParam = 0f;
@@ -32,7 +31,7 @@ public class BezierFollow : MonoBehaviour
 
 	private void Update()
 	{
-        if (coroutineAllowed) StartCoroutine(GoByTheRoute(routeToGo));
+        if (coroutineAllowed && routeToGo + 1 <= routes.Length) StartCoroutine(GoByTheRoute(routeToGo));
 	}
 	private void FixedUpdate()
 	{
@@ -78,13 +77,8 @@ public class BezierFollow : MonoBehaviour
 
         tParam = 0f;
 
-        routeToGo = (routeToGo + 1) % routes.Length;
+        routeToGo += 1;
 
         coroutineAllowed = true;
     }
-
-	private void OnCollisionEnter(Collision collision)
-	{
-		
-	}
 }

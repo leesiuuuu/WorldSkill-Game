@@ -44,7 +44,6 @@ public class GameSystem
 		public string transmission;
 	}
 
-
 	public void Init()
 	{
 		engine = Engine.Normal;
@@ -77,7 +76,7 @@ public class GameSystem
 	public void SetItemData<TEnum>(TEnum enumvalue) where TEnum : Enum
 	{
 		Type enumType = typeof(TEnum);
-
+		  
 		if (enumType == typeof(WheelType)) wheeltype = (WheelType)(object)enumvalue;
 
 		else if (enumType == typeof(Engine)) engine = (Engine)(object)enumvalue;
