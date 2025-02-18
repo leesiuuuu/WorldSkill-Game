@@ -42,5 +42,6 @@ public class GameManage : MonoBehaviour
 	{
 		Debug.Log("Game is Done!");
 		timer.StopCount();
+		
 	}
 }

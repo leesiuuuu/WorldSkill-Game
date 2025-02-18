@@ -37,7 +37,7 @@ public class Timer : MonoBehaviour
 		if (Counting)
 		{
 			TimerCount += Time.deltaTime;
-            TimerText.text = $"{((int)(TimerCount / 60)).ToString("00")}:{((int)(TimerCount % 60)).ToString("00")}.{((TimerCount % 1) * 100).ToString("00")}";
+            TimerText.text = $"{((int)(TimerCount / 60)).ToString("00")}:{((int)(TimerCount % 60)).ToString("00")}.{((int)((TimerCount % 1) * 100)).ToString("00")}";
 		}
 	}
 
