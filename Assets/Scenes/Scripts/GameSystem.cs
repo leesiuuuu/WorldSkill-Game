@@ -1,6 +1,5 @@
 using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameSystem
@@ -37,11 +36,24 @@ public class GameSystem
 	public Engine engine;
 	public Transmission transmission;
 
+	public bool[] WheelStore = new bool[4];
+	public bool[] EngineStore = new bool[3];
+	public bool[] TransmissionStore = new bool[3];
+
 	private class SaveData
 	{
 		public string wheeltype;
 		public string engine;
 		public string transmission;
+
+		public int money;
+	}
+
+	private class StoreData
+	{
+		public bool[] WheelStore = new bool[4];
+		public bool[] EngineStore = new bool[3];
+		public bool[] TransmissionStore = new bool[3];
 	}
 
 	public void Init()
@@ -57,13 +69,82 @@ public class GameSystem
 		{
 			wheeltype = this.wheeltype.ToString(),
 			engine = this.engine.ToString(),
-			transmission = this.transmission.ToString()
+			transmission = this.transmission.ToString(),
+			money = Money
 		};
 
 		string json = JsonUtility.ToJson(data, true);
 		string path = Path.Combine(Application.dataPath, "playerData.json");
 
 		File.WriteAllText(path, json);
+	}
+	public void LoadItemData()
+	{
+		SaveData data = new SaveData { };
+
+		string path = Path.Combine(Application.dataPath, "playerData.json");
+		string jsonData = File.ReadAllText(path);
+
+		data = JsonUtility.FromJson<SaveData>(jsonData);
+
+		wheeltype = (WheelType)Enum.Parse(typeof(WheelType), data.wheeltype);
+		engine = (Engine)Enum.Parse(typeof(Engine), data.engine);
+		transmission = (Transmission)Enum.Parse(typeof(Transmission), data.transmission);
+		Money = data.money;
+	}
+	
+	public void SaveStoreData()
+	{
+		StoreData data = new StoreData
+		{
+			WheelStore = this.WheelStore,
+			EngineStore = this.EngineStore,
+			TransmissionStore = this.TransmissionStore
+		};
+
+		string json = JsonUtility.ToJson (data, true);
+		string path = Path.Combine(Application.dataPath, "storeData.json");
+
+		File.WriteAllText(path, json);
+	}
+	public void LoadStoreData()
+	{
+		StoreData data = new StoreData { };
+
+		string path = Path.Combine(Application.dataPath, "storeData.json");
+		string jsonData = File.ReadAllText (path);
+
+		data = JsonUtility.FromJson<StoreData>(jsonData);
+
+		WheelStore = data.WheelStore;
+		EngineStore = data.EngineStore;
+		TransmissionStore = data.TransmissionStore;
+	}
+	
+	public void SetStoreData(Vector2 Itemindex, bool value)
+	{
+		switch(Itemindex.x)
+		{
+			case 0:
+				WheelStore[(int)Itemindex.y] = value; break;
+			case 1:
+				EngineStore[(int)Itemindex.y] = value; break;
+			case 2:
+				TransmissionStore[(int)Itemindex.y] = value; break;
+		}
+	}
+	public bool GetStoreData(Vector2 Itemindex)
+	{
+		switch (Itemindex.x)
+		{
+			case 0:
+				return WheelStore[(int)Itemindex.y];
+			case 1:
+				return EngineStore[(int)Itemindex.y];
+			case 2:
+				return TransmissionStore[(int)Itemindex.y];
+		}
+		return false;
 	}
 
 
@@ -105,6 +186,31 @@ public class GameSystem
 		else if (enumType == typeof(Transmission)) return (TEnum)(object)transmission;
 
 		else throw new ArgumentException($"지원되지 않는 열거형 타입입니다! \n열거형 타입 : {nameof(TEnum)}");
+	}
+
+	public void Cheat1()
+	{
+
+	}
+	
+	public void Cheat2()
+	{
+
+	}
+
+	public void Cheat3(int StageNum)
+	{
+
+	}
+
+	public void Cheat4()
+	{
+		
+	}
+
+	public void Cheat5()
+	{
+
 	}
 
 }

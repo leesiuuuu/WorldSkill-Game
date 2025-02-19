@@ -75,5 +75,6 @@ public class Timer : MonoBehaviour
 				1 - t);
 			yield return null;
 		}
+        Destroy(obj);
 	}
 }

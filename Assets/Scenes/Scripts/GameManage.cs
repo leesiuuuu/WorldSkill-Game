@@ -4,11 +4,16 @@ using System.Net.Sockets;
 
 public class GameManage : MonoBehaviour
 {
+	[Header("Ready")]
     public Timer timer;
     public KartController controller;
     public BezierFollow beizerFollow;
-
 	public bool GameStart = false;
+
+	[Header("Store")]
+	public GameObject Store;
+	public bool isStore = false;
+
 
 	private void OnEnable()
 	{
@@ -42,6 +47,10 @@ public class GameManage : MonoBehaviour
 	{
 		Debug.Log("Game is Done!");
 		timer.StopCount();
-		
+	}
+
+	public void OpenStore()
+	{
+
 	}
 }
