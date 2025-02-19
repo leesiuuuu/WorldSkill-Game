@@ -32,6 +32,7 @@ public class GameSystem
 		AutoTransmission
 	};
 
+	//현재 상태를 저장함
 	public WheelType wheeltype;
 	public Engine engine;
 	public Transmission transmission;
@@ -39,6 +40,7 @@ public class GameSystem
 	public bool[] WheelStore = new bool[4];
 	public bool[] EngineStore = new bool[3];
 	public bool[] TransmissionStore = new bool[3];
+
 
 	private class SaveData
 	{
@@ -58,6 +60,9 @@ public class GameSystem
 
 	public void Init()
 	{
+		WheelStore[0] = true;
+		EngineStore[0] = true;
+		TransmissionStore[0] = true;
 		engine = Engine.Normal;
 		transmission = Transmission.Normal;
 		wheeltype = WheelType.Normal;

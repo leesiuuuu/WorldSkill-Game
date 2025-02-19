@@ -1,6 +1,5 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-using System.Net.Sockets;
 
 public class GameManage : MonoBehaviour
 {
@@ -17,6 +16,7 @@ public class GameManage : MonoBehaviour
 
 	private void OnEnable()
 	{
+		GameSystem.instance.Init();
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 	private void StartGame()

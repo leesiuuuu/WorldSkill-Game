@@ -1,5 +1,6 @@
 {
     "wheeltype": "Normal",
     "engine": "Normal",
-    "transmission": "Normal"
+    "transmission": "Normal",
+    "money": 0
 }
