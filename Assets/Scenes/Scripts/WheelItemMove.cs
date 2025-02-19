@@ -12,6 +12,9 @@ public class WheelItemMove : ItemSelete
 	private Text ItemTitle;
 	[SerializeField]
 	private Text Info;
+
+	//테스트 코드
+	public GameManage gm;
 	private void Awake()
 	{
 		TitleInfo();
@@ -39,6 +42,13 @@ public class WheelItemMove : ItemSelete
 	}
 	private void Update()
 	{
+		//테스트 코드
+		if (Input.GetKeyDown(KeyCode.P))
+		{
+			gm.OpenStore();
+		}
+
+
 		if (!GameSystem.instance.WheelStore[index])
 		{
 			button.text = "Buy";

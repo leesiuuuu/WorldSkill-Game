@@ -70,6 +70,10 @@ public class KartController : TerrainDetect
 
 	void Update()
 	{
+		if (GameManage.isStore)
+		{
+			return;
+		}
 		moveInput = Input.GetAxis("Vertical");   // ↑↓ 입력값
 		turnInput = Input.GetAxis("Horizontal"); // ←→ 입력값
 
@@ -134,6 +138,10 @@ public class KartController : TerrainDetect
 
 	private void FixedUpdate()
 	{
+		if (GameManage.isStore)
+		{
+			return;
+		}
 		if (backLeftWheel.isGrounded)
 		{
 			SetSkid(true, 0);
@@ -287,6 +295,7 @@ public class KartController : TerrainDetect
 
 		Vector3 normal = contact.normal;
 		Vector3 collisionDirection = -normal;
+		Debug.Log($"{collision.gameObject.name}과 충돌함");
 
 		if(Vector3.Dot(collisionDirection, new Vector3(0,0,-1)) > 0.5f)
 		{

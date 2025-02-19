@@ -1,17 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EngineItemMove : ItemSelete
+public class TransmissionItemMove : ItemSelete
 {
 	public Transform Camera;
 	private int MAX = 3;
-	private float zPos = 3.75f;
+	private float zPos = 1.75f;
 	[SerializeField]
 	private Text button;
 	[SerializeField]
 	private Text ItemTitle;
 	[SerializeField]
 	private Text Info;
+
 	private void Awake()
 	{
 		TitleInfo();
@@ -35,17 +36,17 @@ public class EngineItemMove : ItemSelete
 			new Vector3(
 				Camera.position.x,
 				Camera.position.y,
-				zPos + (index * -3f) + 5.28f);
+				zPos + (index * -3f) + 7.24f);
 	}
 	private void Update()
 	{
-		if (!GameSystem.instance.EngineStore[index])
+		if (!GameSystem.instance.TransmissionStore[index])
 		{
 			button.text = "Buy";
 		}
 		else
 		{
-			if (GameSystem.instance.GetItemData<GameSystem.Engine>().Equals(GameSystem.Engine.Normal))
+			if (GameSystem.instance.GetItemData<GameSystem.Transmission>().Equals(GameSystem.Transmission.Normal))
 			{
 				switch (index)
 				{
@@ -57,7 +58,7 @@ public class EngineItemMove : ItemSelete
 						button.text = "Equip"; break;
 				}
 			}
-			else if (GameSystem.instance.GetItemData<GameSystem.Engine>().Equals(GameSystem.Engine._6Engine))
+			else if (GameSystem.instance.GetItemData<GameSystem.Transmission>().Equals(GameSystem.Transmission.EnforcedTransmission))
 			{
 				switch (index)
 				{
@@ -69,7 +70,7 @@ public class EngineItemMove : ItemSelete
 						button.text = "Equip"; break;
 				}
 			}
-			else if (GameSystem.instance.GetItemData<GameSystem.Engine>().Equals(GameSystem.Engine._8Engine))
+			else if (GameSystem.instance.GetItemData<GameSystem.Transmission>().Equals(GameSystem.Transmission.AutoTransmission))
 			{
 				switch (index)
 				{
@@ -87,32 +88,33 @@ public class EngineItemMove : ItemSelete
 	public void BuyItem()
 	{
 		//돈이 충분한지 확인하는 조건문 추가
-		GameSystem.instance.EngineStore[index] = true;
+		GameSystem.instance.TransmissionStore[index] = true;
 		switch (index)
 		{
 			case 0:
-				GameSystem.instance.SetItemData<GameSystem.Engine>(GameSystem.Engine.Normal); break;
+				GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.Normal); break;
 			case 1:
-				GameSystem.instance.SetItemData<GameSystem.Engine>(GameSystem.Engine._6Engine); break;
+				GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.EnforcedTransmission); break;
 			case 2:
-				GameSystem.instance.SetItemData<GameSystem.Engine>(GameSystem.Engine._8Engine); break;
+				GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.AutoTransmission); break;
 		}
 	}
+
 	private void TitleInfo()
 	{
 		switch (index)
 		{
 			case 0:
-				ItemTitle.text = "평범한 엔진";
-				Info.text = "흔하디 흔한 엔진이다.";
+				ItemTitle.text = "낡은 변속기";
+				Info.text = "어디서 뜯어온건지, 너무 낡았다.";
 				break;
 			case 1:
-				ItemTitle.text = "6기통 엔진";
-				Info.text = "평범한 엔진보다는 좋아보인다.\n이동 시 부스터 게이지가 더 많이 차오른다.";
+				ItemTitle.text = "강화된 변속기";
+				Info.text = "전 변속기보다는 좋은 것 같다.\n드리프트 시 부스터 게이지가 더욱 많이 차오른다.";
 				break;
 			case 2:
-				ItemTitle.text = "8기통 엔진";
-				Info.text = "모든 레이서들이 바라는 엔진이다.\n이동 시 부스터 게이지가 훨씬 많이 차오른다.";
+				ItemTitle.text = "자동 변속기";
+				Info.text = "말로만 듣던 자동 변속기.\n드리프트 시 부스터 게이지가 훨씬 많이 차오른다.";
 				break;
 
 		}

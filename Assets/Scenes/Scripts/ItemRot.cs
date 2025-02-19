@@ -6,7 +6,7 @@ public class ItemRot : MonoBehaviour
     void Update()
     {
 		Vector3 rotation = transform.eulerAngles;
-		rotation.y += Time.deltaTime * 30f;
+		rotation.y += Time.unscaledDeltaTime * 30f;
         transform.eulerAngles = rotation;
     }
 }

@@ -66,7 +66,7 @@ public class Timer : MonoBehaviour
 		float ElapsedTime = 0f;
 		while (ElapsedTime < 1f)
 		{
-			ElapsedTime += Time.deltaTime;
+			ElapsedTime += Time.unscaledDeltaTime;
 			float t = ElapsedTime / 1f;
 			text.color = new Color(
 				text.color.r,

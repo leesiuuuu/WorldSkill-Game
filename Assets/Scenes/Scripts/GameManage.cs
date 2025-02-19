@@ -51,6 +51,12 @@ public class GameManage : MonoBehaviour
 
 	public void OpenStore()
 	{
-
+		isStore = true;
+		Store.SetActive(true);
+	}
+	public void CloseStore()
+	{
+		isStore = false;
+		Store.SetActive(false);
 	}
 }
