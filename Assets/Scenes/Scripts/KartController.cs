@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEditor.Build.Content;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class KartController : TerrainDetect
@@ -59,6 +60,9 @@ public class KartController : TerrainDetect
 	private bool isBoosting = false;
 	private bool isDrifting = false;
 
+	private float DriftValue = 100f;
+	private float MoveValue = 100f;
+
 	[HideInInspector]
 	public float SpeedCheck;
 
@@ -78,6 +82,7 @@ public class KartController : TerrainDetect
 		turnInput = Input.GetAxis("Horizontal"); // ←→ 입력값
 
 		boostSlider.value = boostGauge / 100;
+
 
 		// 드리프트 시작/종료
 		if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -100,7 +105,7 @@ public class KartController : TerrainDetect
 			{
 				if (boostGauge <= 100f)
 				{
-					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
+					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / DriftValue;
 				}
 			}
 		}
@@ -125,7 +130,7 @@ public class KartController : TerrainDetect
 			StartCoroutine(Boost());
 		}
 
-		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 100;
+		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / MoveValue;
 	}
 	public void Startboost()
 	{
@@ -338,5 +343,25 @@ public class KartController : TerrainDetect
 			rb.AddForce(-rb.transform.forward * 50f);
 			Destroy(n, 0.4f);
 		}
+	}
+
+	public void ItemSet()
+	{
+		//GameSystem에 저장된 값에 따라 속도 및 다른 변수 감소
+		if (GameSystem.instance.transmission.Equals(GameSystem.Transmission.EnforcedTransmission)) DriftValue = 80f;
+		else if (GameSystem.instance.transmission.Equals(GameSystem.Transmission.AutoTransmission)) DriftValue = 75f;
+		else DriftValue = 100f;
+
+		if (GameSystem.instance.engine.Equals(GameSystem.Engine._6Engine)) MoveValue = 90f;
+		else if (GameSystem.instance.engine.Equals(GameSystem.Engine._8Engine)) MoveValue = 80f;
+		else MoveValue = 100f;
+
+		if (GameSystem.instance.wheeltype.Equals(GameSystem.WheelType.Sand) && SceneManager.GetActiveScene().name == "Stage2") MoveSpeed = 110;
+		else if (GameSystem.instance.wheeltype.Equals(GameSystem.WheelType.Mountain) && SceneManager.GetActiveScene().name == "Stage1") MoveSpeed = 110;
+		else if (GameSystem.instance.wheeltype.Equals(GameSystem.WheelType.Road) && SceneManager.GetActiveScene().name == "Stage3") MoveSpeed = 110;
+		else MoveSpeed = 100f;
+
+		GameSystem.instance.SaveStoreData();
+		GameSystem.instance.SaveItemData();
 	}
 }
