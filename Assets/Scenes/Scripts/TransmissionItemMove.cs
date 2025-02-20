@@ -1,9 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TransmissionItemMove : ItemSelete
 {
 	public Transform Camera;
+	public StoreManage storeManage;
 	private int MAX = 3;
 	private float zPos = 1.75f;
 	[SerializeField]
@@ -12,6 +14,15 @@ public class TransmissionItemMove : ItemSelete
 	private Text ItemTitle;
 	[SerializeField]
 	private Text Info;
+	[SerializeField]
+	private GameObject WarnLog;
+
+	private int[] costs =
+{
+		0,
+		5000,
+		10000
+	};
 
 	private void Awake()
 	{
@@ -87,17 +98,44 @@ public class TransmissionItemMove : ItemSelete
 
 	public void BuyItem()
 	{
-		//돈이 충분한지 확인하는 조건문 추가
-		GameSystem.instance.TransmissionStore[index] = true;
-		switch (index)
+		if (GameSystem.instance.TransmissionStore[index])
 		{
-			case 0:
-				GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.Normal); break;
-			case 1:
-				GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.EnforcedTransmission); break;
-			case 2:
-				GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.AutoTransmission); break;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.EnforcedTransmission); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.AutoTransmission); break;
+			}
 		}
+		else if(!GameSystem.instance.TransmissionStore[index] && costs[index] <= GameSystem.instance.Money)
+		{
+			GameSystem.instance.TransmissionStore[index] = true;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.EnforcedTransmission); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.AutoTransmission); break;
+			}
+			GameSystem.instance.Money -= costs[index];
+			storeManage.UpdateMoneyUI();
+		}
+		else
+		{
+			StartCoroutine(WarnLogAppear());
+		}
+	}
+	private IEnumerator WarnLogAppear()
+	{
+		WarnLog.SetActive(true);
+		yield return new WaitForSecondsRealtime(0.5f);
+		WarnLog.SetActive(false);
+		yield break;
 	}
 
 	private void TitleInfo()

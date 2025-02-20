@@ -10727,7 +10727,7 @@ GameObject:
   - component: {fileID: 871464623}
   m_Layer: 0
   m_Name: Car_2
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17178,9 +17178,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Camera: {fileID: 1519949898}
+  storeManage: {fileID: 1218707043}
   button: {fileID: 747213487}
   ItemTitle: {fileID: 366668049}
   Info: {fileID: 480656878}
+  WarnLog: {fileID: 61726380}
 --- !u!1 &1523005191
 GameObject:
   m_ObjectHideFlags: 0

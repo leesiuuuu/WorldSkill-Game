@@ -18,5 +18,9 @@ public class ColliderIn : MonoBehaviour
 				GameManage.GameOver();
 			}
 		}
+		if (other.gameObject.CompareTag("Enemy") && gameObject.CompareTag("Out"))
+		{
+			other.gameObject.GetComponent<BezierFollow>().enabled = false;
+		}
 	}
 }

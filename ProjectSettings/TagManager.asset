@@ -9,6 +9,7 @@ TagManager:
   - In
   - Out
   - ItemCube
+  - Enemy
   layers:
   - Default
   - TransparentFX

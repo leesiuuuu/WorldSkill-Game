@@ -12,7 +12,7 @@
     ],
     "TransmissionStore": [
         true,
-        false,
+        true,
         false
     ]
 }
