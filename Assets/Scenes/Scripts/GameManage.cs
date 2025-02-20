@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEditor.Animations;
 
 public class GameManage : MonoBehaviour
 {
@@ -17,6 +18,10 @@ public class GameManage : MonoBehaviour
 	public Sprite[] ItemImage = new Sprite[5];
 	public GameObject ItemPanel;
 
+	[Header("End")]
+	public GameObject Camera;
+	public Vector3 CameraPos;
+	public Vector3 CameraRot;
 
 	private void OnEnable()
 	{
@@ -51,6 +56,10 @@ public class GameManage : MonoBehaviour
 	{
 		Debug.Log("Game is Done!");
 		timer.StopCount();
+		controller.enabled = false;
+		Camera.transform.position = CameraPos;
+		Camera.transform.rotation = Quaternion.Euler(CameraRot);
+		Camera.GetComponent<CameraFollowPlayer>().enabled = false;
 	}
 
 	public void OpenStore()

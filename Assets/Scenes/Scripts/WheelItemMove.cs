@@ -1,9 +1,12 @@
+using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class WheelItemMove : ItemSelete
 {
 	public Transform Camera;
+	public StoreManage storeManage;
 	private int MAX = 4;
 	private float zPos =1.75f;
 	[SerializeField]
@@ -12,6 +15,16 @@ public class WheelItemMove : ItemSelete
 	private Text ItemTitle;
 	[SerializeField]
 	private Text Info;
+	[SerializeField]
+	private GameObject WarnLog;
+
+	private int[] costs = 
+	{
+		0,
+		2000,
+		3000,
+		5000
+	};
 
 	//테스트 코드
 	public GameManage gm;
@@ -116,22 +129,51 @@ public class WheelItemMove : ItemSelete
 
 	public void BuyItem()
 	{
-		//돈이 충분한지 확인하는 조건문 추가
-		GameSystem.instance.WheelStore[index] = true;
-		switch (index)
+		if (GameSystem.instance.WheelStore[index])
 		{
-			case 0:
-				GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Normal); break;
-			case 1:
-				GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Sand); break;
-			case 2:
-				GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Mountain); break;
-			case 3:
-				GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Road); break;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Sand); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Mountain); break;
+				case 3:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Road); break;
+			}
+		}
+		else if (costs[index] <= GameSystem.instance.Money && !GameSystem.instance.WheelStore[index])
+		{
+			GameSystem.instance.WheelStore[index] = true;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Sand); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Mountain); break;
+				case 3:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Road); break;
+			}
+			GameSystem.instance.Money -= costs[index];
+			storeManage.UpdateMoneyUI();
+		}
+		else
+		{
+			StartCoroutine(WarnLogAppear());
 		}
 	}
+	private IEnumerator WarnLogAppear()
+	{
+		WarnLog.SetActive(true);
+		yield return new WaitForSecondsRealtime(0.5f);
+		WarnLog.SetActive(false);
+		yield break;
+	}
 
-	private void TitleInfo()
+	public void TitleInfo()
 	{
 		switch (index)
 		{

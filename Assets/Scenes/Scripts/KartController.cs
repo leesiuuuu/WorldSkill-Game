@@ -49,6 +49,7 @@ public class KartController : TerrainDetect
 	[Header("UI")]
 	public Slider boostSlider;
 	public Text boostText;
+	public GameObject ItemLog;
 
 	[Header("Game Management")]
 	public GameManage GameManage;
@@ -333,7 +334,7 @@ public class KartController : TerrainDetect
 		if (other.CompareTag("ItemCube"))
 		{
 			other.gameObject.SetActive(false);
-			GameManage.RendomItem();
+			ItemLog.SetActive(true);
 		}
 	}
 

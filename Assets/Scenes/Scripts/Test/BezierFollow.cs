@@ -32,6 +32,7 @@ public class BezierFollow : MonoBehaviour
 	private void Update()
 	{
         if (coroutineAllowed && routeToGo + 1 <= routes.Length) StartCoroutine(GoByTheRoute(routeToGo));
+        else GetComponent<BezierFollow>().enabled = false;
 	}
 	private void FixedUpdate()
 	{

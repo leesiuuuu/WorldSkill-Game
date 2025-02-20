@@ -3,16 +3,16 @@
         true,
         false,
         true,
-        false
+        true
     ],
     "EngineStore": [
         true,
         true,
-        false
+        true
     ],
     "TransmissionStore": [
         true,
-        true,
+        false,
         false
     ]
 }
