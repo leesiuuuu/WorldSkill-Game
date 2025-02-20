@@ -6,4 +6,7 @@ public abstract class ItemSelete : MonoBehaviour
     public abstract void MoveLeft();
     public abstract void MoveRight();
 
+    public abstract void SaveIndex();
+    public abstract void LoadIndex();
+
 }

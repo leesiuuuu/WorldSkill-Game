@@ -117,4 +117,14 @@ public class EngineItemMove : ItemSelete
 
 		}
 	}
+	public override void SaveIndex()
+	{
+		PlayerPrefs.SetInt("index_engine", index);
+		PlayerPrefs.Save();
+	}
+	public override void LoadIndex()
+	{
+		if (PlayerPrefs.HasKey("index_engine"))
+			index = PlayerPrefs.GetInt("index_engine");
+	}
 }

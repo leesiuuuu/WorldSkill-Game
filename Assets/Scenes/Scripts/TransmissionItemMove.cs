@@ -119,4 +119,14 @@ public class TransmissionItemMove : ItemSelete
 
 		}
 	}
+	public override void SaveIndex()
+	{
+		PlayerPrefs.SetInt("index_transmission", index);
+		PlayerPrefs.Save();
+	}
+	public override void LoadIndex()
+	{
+		if(PlayerPrefs.HasKey("index_transmission"))
+		index = PlayerPrefs.GetInt("index_transmission");
+	}
 }

@@ -13,6 +13,10 @@ public class GameManage : MonoBehaviour
 	public GameObject Store;
 	public bool isStore = false;
 
+	[Header("Item")]
+	public Sprite[] ItemImage = new Sprite[5];
+	public GameObject ItemPanel;
+
 
 	private void OnEnable()
 	{
@@ -58,5 +62,12 @@ public class GameManage : MonoBehaviour
 	{
 		isStore = false;
 		Store.SetActive(false);
+	}
+
+	public Sprite RendomItem()
+	{
+		ItemPanel.SetActive(true);
+		int rand = Random.Range(0, 5);
+		return ItemImage[rand];
 	}
 }

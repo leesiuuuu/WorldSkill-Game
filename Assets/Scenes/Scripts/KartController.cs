@@ -328,6 +328,15 @@ public class KartController : TerrainDetect
 		}
 	}
 
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("ItemCube"))
+		{
+			other.gameObject.SetActive(false);
+			GameManage.RendomItem();
+		}
+	}
+
 	//지정 방향으로 속도 조절
 	void AdjustSpeed(Vector3 collisionDirection, bool isIncrease = false)
 	{

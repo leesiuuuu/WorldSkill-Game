@@ -1,0 +1,18 @@
+{
+    "WheelStore": [
+        true,
+        false,
+        true,
+        false
+    ],
+    "EngineStore": [
+        true,
+        true,
+        false
+    ],
+    "TransmissionStore": [
+        true,
+        true,
+        false
+    ]
+}

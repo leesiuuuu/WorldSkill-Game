@@ -154,4 +154,15 @@ public class WheelItemMove : ItemSelete
 
 		}
 	}
+
+	public override void SaveIndex()
+	{
+		PlayerPrefs.SetInt("index_wheel", index);
+		PlayerPrefs.Save();
+	}
+	public override void LoadIndex()
+	{
+		if (PlayerPrefs.HasKey("index_wheel"))
+			index = PlayerPrefs.GetInt("index_wheel");
+	}
 }

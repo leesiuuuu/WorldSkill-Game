@@ -41,7 +41,6 @@ public class GameSystem
 	public bool[] EngineStore = new bool[3];
 	public bool[] TransmissionStore = new bool[3];
 
-
 	private class SaveData
 	{
 		public string wheeltype;
@@ -88,6 +87,10 @@ public class GameSystem
 		SaveData data = new SaveData { };
 
 		string path = Path.Combine(Application.dataPath, "playerData.json");
+		if (!File.Exists(path))
+		{
+			SaveItemData();
+		}
 		string jsonData = File.ReadAllText(path);
 
 		data = JsonUtility.FromJson<SaveData>(jsonData);
@@ -117,6 +120,10 @@ public class GameSystem
 		StoreData data = new StoreData { };
 
 		string path = Path.Combine(Application.dataPath, "storeData.json");
+		if (!File.Exists(path))
+		{
+			SaveStoreData();
+		}
 		string jsonData = File.ReadAllText (path);
 
 		data = JsonUtility.FromJson<StoreData>(jsonData);
