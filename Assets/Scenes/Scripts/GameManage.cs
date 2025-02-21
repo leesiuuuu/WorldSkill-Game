@@ -22,6 +22,8 @@ public class GameManage : MonoBehaviour
 	public GameObject Camera;
 	public Vector3 CameraPos;
 	public Vector3 CameraRot;
+	public bool PlayerWin = true;
+	public GameObject ResultPanel;
 
 	private void OnEnable()
 	{
@@ -60,6 +62,7 @@ public class GameManage : MonoBehaviour
 		Camera.transform.position = CameraPos;
 		Camera.transform.rotation = Quaternion.Euler(CameraRot);
 		Camera.GetComponent<CameraFollowPlayer>().enabled = false;
+		ResultPanel.SetActive(true);
 	}
 
 	public void OpenStore()
@@ -78,5 +81,10 @@ public class GameManage : MonoBehaviour
 		ItemPanel.SetActive(true);
 		int rand = Random.Range(0, 5);
 		return ItemImage[rand];
+	}
+
+	public void StageLoad(string name)
+	{
+		SceneManager.LoadScene(name);
 	}
 }

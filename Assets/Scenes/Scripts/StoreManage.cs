@@ -13,8 +13,6 @@ public class StoreManage : MonoBehaviour
 
 	public GameObject player;
 
-	public GameObject CoinEffect;
-
 	public Text MoneyUI;
 	private void OnEnable()
 	{

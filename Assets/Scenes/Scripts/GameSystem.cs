@@ -56,6 +56,12 @@ public class GameSystem
 		public bool[] EngineStore = new bool[3];
 		public bool[] TransmissionStore = new bool[3];
 	}
+	
+	private class Ranking
+	{
+		public string name;
+		public int score;
+	}
 
 	public void Init()
 	{
@@ -159,6 +165,14 @@ public class GameSystem
 		return false;
 	}
 
+	public void RegisterRanking(string name, int score)
+	{
+		
+	}
+	public void UpdateRanking()
+	{
+
+	}
 
 	/// <summary>
 	/// 열거형 타입을 매개변수로 받아 GameSystem의 해당 필드를 변경해주는 함수

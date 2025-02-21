@@ -20,7 +20,7 @@ public class ColliderIn : MonoBehaviour
 		}
 		if (other.gameObject.CompareTag("Enemy") && gameObject.CompareTag("Out"))
 		{
-			other.gameObject.GetComponent<BezierFollow>().enabled = false;
+			GameManage.PlayerWin = false;
 		}
 	}
 }
