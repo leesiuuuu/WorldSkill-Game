@@ -16,6 +16,8 @@ public class EngineItemMove : ItemSelete
 	private Text Info;
 	[SerializeField]
 	private GameObject WarnLog;
+	[SerializeField]
+	private Text costText;
 
 	private int[] costs =
 {
@@ -50,6 +52,17 @@ public class EngineItemMove : ItemSelete
 	}
 	private void Update()
 	{
+
+		if (costs[index] == 0)
+		{
+			costText.text = "FREE";
+		}
+		else
+		{
+			costText.text = $"{costs[index]}$";
+		}
+
+
 		if (!GameSystem.instance.EngineStore[index])
 		{
 			button.text = "Buy";

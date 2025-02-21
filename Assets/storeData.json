@@ -1,7 +1,7 @@
 {
     "WheelStore": [
         true,
-        false,
+        true,
         true,
         true
     ],
@@ -13,6 +13,6 @@
     "TransmissionStore": [
         true,
         true,
-        false
+        true
     ]
 }

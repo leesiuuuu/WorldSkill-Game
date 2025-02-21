@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Timeline.TimelinePlaybackControls;
 
 public class TransmissionItemMove : ItemSelete
 {
@@ -16,6 +17,8 @@ public class TransmissionItemMove : ItemSelete
 	private Text Info;
 	[SerializeField]
 	private GameObject WarnLog;
+	[SerializeField]
+	private Text costText;
 
 	private int[] costs =
 {
@@ -51,6 +54,15 @@ public class TransmissionItemMove : ItemSelete
 	}
 	private void Update()
 	{
+		if(costs[index] == 0)
+		{
+			costText.text = "FREE";
+		}
+		else
+		{
+			costText.text = $"{costs[index]}$";
+		}
+
 		if (!GameSystem.instance.TransmissionStore[index])
 		{
 			button.text = "Buy";

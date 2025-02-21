@@ -54,6 +54,9 @@ public class KartController : TerrainDetect
 	[Header("Game Management")]
 	public GameManage GameManage;
 
+	[Header("Map Setting")]
+	public GameSystem.WheelType _wheelType;
+
 	private float BoostSpeed = 1f;
 
 	private float moveInput;
@@ -171,7 +174,7 @@ public class KartController : TerrainDetect
 	void RigidMovement()
 	{
 		moveSpeed = transform.forward * moveInput * BoostSpeed * MoveSpeed;
-		if (GetTerrainAtPosition(transform.position) == 1 && !GameSystem.instance.wheeltype.Equals(GameSystem.WheelType.Mountain)) rb.AddForce(-moveSpeed * 0.5f);
+		if (GetTerrainAtPosition(transform.position) == 1 && !GameSystem.instance.wheeltype.Equals(_wheelType)) rb.AddForce(-moveSpeed * 0.5f);
 		else rb.AddForce(moveSpeed);
 
 		transform.Rotate(Vector3.up * turnInput * SteerAngle * Time.fixedDeltaTime);

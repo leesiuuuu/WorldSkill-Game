@@ -17,6 +17,8 @@ public class WheelItemMove : ItemSelete
 	private Text Info;
 	[SerializeField]
 	private GameObject WarnLog;
+	[SerializeField]
+	private Text costText;
 
 	private int[] costs = 
 	{
@@ -59,6 +61,15 @@ public class WheelItemMove : ItemSelete
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			gm.OpenStore();
+		}
+
+		if (costs[index] == 0)
+		{
+			costText.text = "FREE";
+		}
+		else
+		{
+			costText.text = $"{costs[index]}$";
 		}
 
 
