@@ -8,7 +8,7 @@ public class GameSystem
 	private GameSystem() { }
 
 	public float resultTime = 0f;
-	public int Money = 0;
+	public int Money;
 
 	public enum WheelType
 	{
@@ -93,10 +93,6 @@ public class GameSystem
 		SaveData data = new SaveData { };
 
 		string path = Path.Combine(Application.dataPath, "playerData.json");
-		if (!File.Exists(path))
-		{
-			SaveItemData();
-		}
 		string jsonData = File.ReadAllText(path);
 
 		data = JsonUtility.FromJson<SaveData>(jsonData);

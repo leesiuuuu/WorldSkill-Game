@@ -150,7 +150,7 @@ public class TransmissionItemMove : ItemSelete
 		yield break;
 	}
 
-	private void TitleInfo()
+	public void TitleInfo()
 	{
 		switch (index)
 		{

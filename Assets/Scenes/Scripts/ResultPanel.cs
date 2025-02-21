@@ -21,7 +21,7 @@ public class ResultPanel : MonoBehaviour
 			//점수 합계 추가하기
 			PlayerPrefs.SetInt("score", score);
 			PlayerPrefs.Save();
-			Score.text = $"Score : {score}";
+			Score.text = $"Score : {score.ToString("000000")}";
 			buttonText.text = "Next Stage";
 			Main.gameObject.SetActive(false);
 			NextStage.onClick.RemoveAllListeners();
@@ -35,7 +35,11 @@ public class ResultPanel : MonoBehaviour
 		else
 		{
 			Title.text = "GAME OVER...";
+			int score = (int)(1000000 / gameManage.timer.TimerCount - 50);
 			//점수 합계 추가하기
+			PlayerPrefs.SetInt("score", score);
+			PlayerPrefs.Save();
+			Score.text = $"Score : {score.ToString("000000")}";
 			buttonText.text = "Retry";
 			Main.gameObject.SetActive(true);
 			Main.onClick.AddListener(() =>

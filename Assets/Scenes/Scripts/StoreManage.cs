@@ -18,16 +18,18 @@ public class StoreManage : MonoBehaviour
 	{
 		Time.timeScale = 0f;
 
-		MoneyUI.text = "Money : " + GameSystem.instance.Money. ToString() + "$";
+		GameSystem.instance.LoadItemData();
+		GameSystem.instance.LoadStoreData();
 
 		wim.LoadIndex();
 		eim.LoadIndex();
 		tim.LoadIndex();
 
-		GameSystem.instance.LoadItemData();
-		GameSystem.instance.LoadStoreData();
-
 		wim.TitleInfo();
+		eim.TitleInfo();
+		tim.TitleInfo();
+
+		UpdateMoneyUI();
 	}
 	public void UpdateMoneyUI()
 	{

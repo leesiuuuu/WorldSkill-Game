@@ -27,7 +27,6 @@ public class GameManage : MonoBehaviour
 
 	private void OnEnable()
 	{
-		GameSystem.instance.Init(); // 여기는 나중에 뺄 것
 		SceneManager.sceneLoaded += OnSceneLoaded;
 	}
 	private void StartGame()

@@ -149,7 +149,7 @@ public class EngineItemMove : ItemSelete
 		WarnLog.SetActive(false);
 		yield break;
 	}
-	private void TitleInfo()
+	public void TitleInfo()
 	{
 		switch (index)
 		{
