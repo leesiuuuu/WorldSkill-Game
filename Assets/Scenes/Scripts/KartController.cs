@@ -171,7 +171,7 @@ public class KartController : TerrainDetect
 	void RigidMovement()
 	{
 		moveSpeed = transform.forward * moveInput * BoostSpeed * MoveSpeed;
-		if (GetTerrainAtPosition(transform.position) == 1) rb.AddForce(-moveSpeed * 0.5f);
+		if (GetTerrainAtPosition(transform.position) == 1 && !GameSystem.instance.wheeltype.Equals(GameSystem.WheelType.Mountain)) rb.AddForce(-moveSpeed * 0.5f);
 		else rb.AddForce(moveSpeed);
 
 		transform.Rotate(Vector3.up * turnInput * SteerAngle * Time.fixedDeltaTime);
