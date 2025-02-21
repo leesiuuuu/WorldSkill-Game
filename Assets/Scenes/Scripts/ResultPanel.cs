@@ -17,7 +17,11 @@ public class ResultPanel : MonoBehaviour
 		if (gameManage.PlayerWin)
 		{
 			Title.text = "GAME CLEAR!";
+			int score = (int)(1000000 / gameManage.timer.TimerCount - 50);
 			//점수 합계 추가하기
+			PlayerPrefs.SetInt("score", score);
+			PlayerPrefs.Save();
+			Score.text = $"Score : {score}";
 			buttonText.text = "Next Stage";
 			Main.gameObject.SetActive(false);
 			NextStage.onClick.RemoveAllListeners();

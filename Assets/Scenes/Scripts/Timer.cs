@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class Timer : MonoBehaviour
 {
-    private float TimerCount = 0f;
+    [HideInInspector]
+    public float TimerCount = 0f;
 
     [SerializeField]
     private GameObject CountDownObj;
