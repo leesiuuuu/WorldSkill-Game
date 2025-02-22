@@ -29,7 +29,7 @@ public class WheelItemMove : ItemSelete
 	};
 
 	//테스트 코드
-	public GameManage gm;
+	//public GameManage gm;
 	private void Awake()
 	{
 		TitleInfo();
@@ -57,11 +57,11 @@ public class WheelItemMove : ItemSelete
 	}
 	private void Update()
 	{
-		//테스트 코드
+/*		//테스트 코드
 		if (Input.GetKeyDown(KeyCode.P))
 		{
 			gm.OpenStore();
-		}
+		}*/
 
 		if (costs[index] == 0)
 		{
