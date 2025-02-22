@@ -19,8 +19,8 @@ public class ResultPanel : MonoBehaviour
 			Title.text = "GAME CLEAR!";
 			int score = (int)(1000000 / gameManage.timer.TimerCount - 50);
 			//점수 합계 추가하기
-			PlayerPrefs.SetInt("score", score);
-			PlayerPrefs.Save();
+			GameSystem.instance.Score += score;
+			Debug.Log("Current Score : " + GameSystem.instance.Score);
 			Score.text = $"Score : {score.ToString("000000")}";
 			buttonText.text = "Next Stage";
 			Main.gameObject.SetActive(false);
@@ -37,8 +37,6 @@ public class ResultPanel : MonoBehaviour
 			Title.text = "GAME OVER...";
 			int score = (int)(1000000 / gameManage.timer.TimerCount - 50);
 			//점수 합계 추가하기
-			PlayerPrefs.SetInt("score", score);
-			PlayerPrefs.Save();
 			Score.text = $"Score : {score.ToString("000000")}";
 			buttonText.text = "Retry";
 			Main.gameObject.SetActive(true);

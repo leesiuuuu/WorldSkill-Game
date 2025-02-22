@@ -1,6 +1,6 @@
 {
-    "wheeltype": "Normal",
+    "wheeltype": "Sand",
     "engine": "Normal",
-    "transmission": "Normal",
-    "money": 20000
+    "transmission": "AutoTransmission",
+    "money": 200
 }

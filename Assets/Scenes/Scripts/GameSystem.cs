@@ -1,5 +1,7 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class GameSystem
@@ -9,6 +11,8 @@ public class GameSystem
 
 	public float resultTime = 0f;
 	public int Money;
+
+	public int Score;
 
 	public enum WheelType
 	{
@@ -56,13 +60,20 @@ public class GameSystem
 		public bool[] EngineStore = new bool[3];
 		public bool[] TransmissionStore = new bool[3];
 	}
-	
+
+	[System.Serializable]
 	private class Ranking
 	{
 		public string name;
 		public int score;
 	}
+	[System.Serializable]
+	private class RankingList	
+	{
+		public List<Ranking> ranking = new List<Ranking>();
+	}
 
+	private List<Ranking> ranks = new List<Ranking>();
 	public void Init()
 	{
 		WheelStore[0] = true;
@@ -160,16 +171,60 @@ public class GameSystem
 		}
 		return false;
 	}
-
 	public void RegisterRanking(string name, int score)
 	{
-		
+		Ranking rank = new Ranking
+		{
+			name = name,
+			score = score
+		};
+		ranks.Add(rank);
+		ranks.Sort((a, b) => b.score.CompareTo(a.score));
+
+		UpdateRanking();
 	}
+	//랭킹 리스트를 업데이트하여 json에 저장함. init 대신 사용할 수 있음.
 	public void UpdateRanking()
 	{
+		Debug.Log("UpdateRanking 실행됨");
 
+		// 리스트 크기 확인
+		Debug.Log($"현재 RankingList 크기: {ranks.Count}");
+
+		RankingList list = new RankingList();
+		list.ranking = ranks;
+
+		// 리스트 요소 확인
+		foreach (var rank in ranks)
+		{
+			Debug.Log($"랭킹: {rank.name} - {rank.score}");
+		}
+
+		string path = Path.Combine(Application.dataPath, "ranking.json");
+		string json = JsonUtility.ToJson(list, true);
+
+		Debug.Log($"JSON 저장 데이터:\n{json}");
+
+		File.WriteAllText(path, json);
 	}
 
+	public void LoadRanking()
+	{
+		string path = Path.Combine(Application.dataPath, "ranking.json");
+
+		if(!File.Exists(path))
+		{
+			UpdateRanking();
+			return;
+		}
+		string jsonData = File.ReadAllText(path);
+		RankingList list = JsonUtility.FromJson<RankingList>(jsonData);
+
+		if (list != null && list.ranking != null)
+		{
+			ranks = list.ranking;
+		}
+	}
 	/// <summary>
 	/// 열거형 타입을 매개변수로 받아 GameSystem의 해당 필드를 변경해주는 함수
 	/// </summary>
