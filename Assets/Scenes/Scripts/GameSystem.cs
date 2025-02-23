@@ -62,13 +62,13 @@ public class GameSystem
 	}
 
 	[System.Serializable]
-	private class Ranking
+	public class Ranking
 	{
 		public string name;
 		public int score;
 	}
 	[System.Serializable]
-	private class RankingList	
+	public class RankingList	
 	{
 		public List<Ranking> ranking = new List<Ranking>();
 	}

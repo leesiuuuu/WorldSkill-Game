@@ -4985,7 +4985,6 @@ MonoBehaviour:
   Info: {fileID: 1827415797}
   WarnLog: {fileID: 708403659}
   costText: {fileID: 984619096}
-  gm: {fileID: 806798297}
 --- !u!1 &443121337
 GameObject:
   m_ObjectHideFlags: 0
@@ -17990,6 +17989,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72cce084013a3a74093584fdac62f3af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimerCount: 0
   CountDownObj: {fileID: 8565469690928858699, guid: 78c037ee0981f084fbb59bbae5c58d03, type: 3}
   TimerText: {fileID: 1523005193}
 --- !u!1001 &1528338939

@@ -1,19 +1,19 @@
 {
     "ranking": [
         {
-            "name": "examplename123",
+            "name": "test",
             "score": 28320
         },
         {
-            "name": "examplename123",
+            "name": "name",
             "score": 26991
         },
         {
-            "name": "examplename123",
+            "name": "is",
             "score": 4342
         },
         {
-            "name": "examplename",
+            "name": "null",
             "score": 1023
         }
     ]

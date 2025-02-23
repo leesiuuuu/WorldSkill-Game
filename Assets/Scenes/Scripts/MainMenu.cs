@@ -29,4 +29,12 @@ public class MainMenu : MonoBehaviour
 			yield return null;
 		}
 	}
+	public void ExitGame()
+	{
+		Application.Quit();
+	}
+	public void StartGame()
+	{
+		//게임 시작 전 스토리 설명 씬으로 이동
+	}
 }

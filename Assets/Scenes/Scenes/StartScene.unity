@@ -419,6 +419,7 @@ GameObject:
   - component: {fileID: 69439999}
   - component: {fileID: 69440001}
   - component: {fileID: 69440000}
+  - component: {fileID: 69440002}
   m_Layer: 5
   m_Name: RankField
   m_TagString: Untagged
@@ -486,6 +487,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 69439998}
   m_CullTransparentMesh: 1
+--- !u!114 &69440002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69439998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a8958eeb68b634695f37b58383ac5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rank: 1
+  Rank: {fileID: 1462482077}
+  Name: {fileID: 920513297}
+  Score: {fileID: 1753052253}
 --- !u!1 &79117935
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,6 +863,7 @@ GameObject:
   - component: {fileID: 128836594}
   - component: {fileID: 128836596}
   - component: {fileID: 128836595}
+  - component: {fileID: 128836597}
   m_Layer: 5
   m_Name: RankField (1)
   m_TagString: Untagged
@@ -913,6 +931,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 128836593}
   m_CullTransparentMesh: 1
+--- !u!114 &128836597
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 128836593}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a8958eeb68b634695f37b58383ac5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rank: 2
+  Rank: {fileID: 1499990051}
+  Name: {fileID: 1006775202}
+  Score: {fileID: 504002724}
 --- !u!1 &130496818
 GameObject:
   m_ObjectHideFlags: 0
@@ -5021,6 +5055,7 @@ GameObject:
   - component: {fileID: 1078184711}
   - component: {fileID: 1078184713}
   - component: {fileID: 1078184712}
+  - component: {fileID: 1078184714}
   m_Layer: 5
   m_Name: RankField (2)
   m_TagString: Untagged
@@ -5088,6 +5123,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078184710}
   m_CullTransparentMesh: 1
+--- !u!114 &1078184714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078184710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a8958eeb68b634695f37b58383ac5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rank: 3
+  Rank: {fileID: 1993501628}
+  Name: {fileID: 2067477051}
+  Score: {fileID: 1131658386}
 --- !u!1 &1091098025
 GameObject:
   m_ObjectHideFlags: 0
@@ -5415,6 +5466,7 @@ GameObject:
   - component: {fileID: 1134157896}
   - component: {fileID: 1134157898}
   - component: {fileID: 1134157897}
+  - component: {fileID: 1134157899}
   m_Layer: 5
   m_Name: RankField (3)
   m_TagString: Untagged
@@ -5482,6 +5534,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1134157895}
   m_CullTransparentMesh: 1
+--- !u!114 &1134157899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1134157895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a8958eeb68b634695f37b58383ac5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rank: 4
+  Rank: {fileID: 1064680431}
+  Name: {fileID: 459529086}
+  Score: {fileID: 173954577}
 --- !u!1 &1165634643
 GameObject:
   m_ObjectHideFlags: 0
@@ -7482,6 +7550,7 @@ GameObject:
   - component: {fileID: 1551113369}
   - component: {fileID: 1551113371}
   - component: {fileID: 1551113370}
+  - component: {fileID: 1551113372}
   m_Layer: 5
   m_Name: RankField (4)
   m_TagString: Untagged
@@ -7549,6 +7618,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1551113368}
   m_CullTransparentMesh: 1
+--- !u!114 &1551113372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1551113368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9a8958eeb68b634695f37b58383ac5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _rank: 5
+  Rank: {fileID: 1497342398}
+  Name: {fileID: 1453912202}
+  Score: {fileID: 2048232758}
 --- !u!1 &1567930377
 GameObject:
   m_ObjectHideFlags: 0

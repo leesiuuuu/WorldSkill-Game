@@ -19,9 +19,9 @@ public class CameraFollowPlayer : MonoBehaviour
 
         Vector3 targetPos = Player.transform.position - forward * distance + Vector3.up * Height;
 
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * CameraSpeed);
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.fixedDeltaTime * CameraSpeed);
 
         Quaternion targetRot = Quaternion.LookRotation(Player.transform.position - transform.position);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * RotateSpeed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.fixedDeltaTime * RotateSpeed);
 	}
 }
