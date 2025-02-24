@@ -113,7 +113,7 @@ public class GameSystem
 		transmission = (Transmission)Enum.Parse(typeof(Transmission), data.transmission);
 		Money = data.money;
 	}
-	
+
 	public void SaveStoreData()
 	{
 		StoreData data = new StoreData
