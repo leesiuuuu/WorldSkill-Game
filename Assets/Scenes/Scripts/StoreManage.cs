@@ -16,6 +16,8 @@ public class StoreManage : MonoBehaviour
 	public Text MoneyUI;
 
 	public bool StoreClosed = false;
+
+	public bool FreeUse = false;
 	private void OnEnable()
 	{
 		Time.timeScale = 0f;

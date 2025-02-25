@@ -1,6 +1,8 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
+using UnityEngine.UIElements;
 
 public class GameManage : MonoBehaviour
 {
@@ -26,10 +28,25 @@ public class GameManage : MonoBehaviour
 	public GameObject ResultPanel;
 
 	[Header("Cheat")]
+	public GameObject CheatCanvas;
 	public Text CheatLog;
 	public GameObject Cheat5Log;
+	public GameObject SkipPos;
+	public GameObject ItemSelete;
 
 	private bool Pause = false;
+	[HideInInspector]
+	public bool _RandomItem = true;
+
+	public Sprite ItemSeletedSprite;
+	private void Awake()
+	{
+		if (PlayerPrefs.GetInt("Cheat3") == 1)
+		{
+			StartCoroutine(_cheatLog("치트 3 : 스테이지 재시작"));
+		}
+		PlayerPrefs.DeleteKey("Cheat3");
+	}
 
 	private void OnEnable()
 	{
@@ -87,6 +104,10 @@ public class GameManage : MonoBehaviour
 		int rand = Random.Range(0, 6);
 		return ItemImage[rand];
 	}
+	public Sprite ItemByName(int index)
+	{
+		return ItemImage[index];
+	}
 
 	public void StageLoad(string name)
 	{
@@ -95,24 +116,27 @@ public class GameManage : MonoBehaviour
 
 	public void Cheat1()
 	{
-
+		Time.timeScale = 0f;
+		ItemSelete.SetActive(true);
 	}
 
 	public void Cheat2()
 	{
-
+		StartCoroutine(_cheatLog("치트 2 : 아이템 무료 구매 가능"));
+		Store.GetComponent<StoreManage>().FreeUse = true;
 	}
 
-	public void Cheat3(int StageNum)
+	public void Cheat3()
 	{
+		PlayerPrefs.SetInt("Cheat3", 1);
+		PlayerPrefs.Save();
 		StageLoad(SceneManager.GetActiveScene().name);
 	}
 
 	public void Cheat4()
 	{
-		string name = SceneManager.GetActiveScene().name;
-		int count = int.Parse(name[name.Length - 1].ToString()) + 1;
-		StageLoad(name.Remove(name.Length - 1) + count);
+		StartCoroutine(_cheatLog("치트 4 : 다음 스테이지 이동"));
+		controller.gameObject.transform.position = SkipPos.transform.position;
 	}
 
 	public void Cheat5()
@@ -120,5 +144,24 @@ public class GameManage : MonoBehaviour
 		Pause = !Pause;
 		Cheat5Log.SetActive(Pause);
 		Time.timeScale = Pause ? 0 : 1;
+	}
+
+	public void OnClickCheat1(int index)
+	{
+		_RandomItem = false;
+		ItemSeletedSprite = ItemByName(index);
+		Time.timeScale = 1f;
+		ItemSelete.SetActive(false);
+		ItemPanel.SetActive(true);
+		_RandomItem = true;
+	}
+	
+	public IEnumerator _cheatLog(string value)
+	{
+		CheatLog.gameObject.SetActive(true);
+		CheatLog.text = value;
+		yield return new WaitForSecondsRealtime(1f);
+		CheatLog.text = "";
+		CheatLog.gameObject.SetActive(false);
 	}
 }

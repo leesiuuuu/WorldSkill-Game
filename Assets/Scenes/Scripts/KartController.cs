@@ -1,5 +1,6 @@
 using System.Collections;
 using System.ComponentModel.Design;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -76,10 +77,34 @@ public class KartController : TerrainDetect
 
 	void Update()
 	{
+
+		if (Input.GetKeyDown(KeyCode.F2))
+		{
+			GameManage.Cheat2();
+		}
+
 		if (GameManage.isStore)
 		{
 			return;
 		}
+
+		if (Input.GetKeyDown(KeyCode.F1))
+		{
+			GameManage.Cheat1();
+		}
+		else if (Input.GetKeyDown(KeyCode.F3))
+		{
+			GameManage.Cheat3();
+		}
+		else if (Input.GetKeyDown(KeyCode.F4))
+		{
+			GameManage.Cheat4();
+		}
+		else if (Input.GetKeyDown(KeyCode.F5))
+		{
+			GameManage.Cheat5();
+		}
+
 		moveInput = Input.GetAxis("Vertical");   // ↑↓ 입력값
 		turnInput = Input.GetAxis("Horizontal"); // ←→ 입력값
 
@@ -111,9 +136,6 @@ public class KartController : TerrainDetect
 				}
 			}
 		}
-
-		//치트키
-		CheatKey();
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
@@ -358,19 +380,6 @@ public class KartController : TerrainDetect
 			Destroy(n, 0.4f);
 		}
 	}
-
-	void CheatKey()
-	{
-		if (Input.GetKeyDown(KeyCode.F1)) { }
-		else if (Input.GetKeyDown(KeyCode.F2)) { }
-		else if (Input.GetKeyDown(KeyCode.F3)) { }
-		else if (Input.GetKeyDown(KeyCode.F4)) { }
-		else if (Input.GetKeyDown(KeyCode.F5))
-		{
-			GameManage.Cheat5();
-		}
-	}
-
 	public void ItemSet()
 	{
 		//GameSystem에 저장된 값에 따라 속도 및 다른 변수 감소

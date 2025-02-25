@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -167,7 +168,26 @@ public class WheelItemMove : ItemSelete
 
 	public void BuyItem()
 	{
-		if (GameSystem.instance.WheelStore[index])
+		if (storeManage.FreeUse)
+		{
+			GameSystem.instance.WheelStore[index] = true;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Sand); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Mountain); break;
+				case 3:
+					GameSystem.instance.SetItemData<GameSystem.WheelType>(GameSystem.WheelType.Road); break;
+			}
+			storeManage.FreeUse = false;
+			storeManage.UpdateMoneyUI();
+			return;
+		}
+
+		else if (GameSystem.instance.WheelStore[index])
 		{
 			switch (index)
 			{
