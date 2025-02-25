@@ -33,6 +33,7 @@ public class WheelItemMove : ItemSelete
 
 	private void Awake()
 	{
+		LoadIndex();
 		TitleInfo();
 	}
 	public override void MoveLeft()
@@ -253,6 +254,7 @@ public class WheelItemMove : ItemSelete
 				break;
 
 		}
+		Move();
 	}
 
 	public override void SaveIndex()

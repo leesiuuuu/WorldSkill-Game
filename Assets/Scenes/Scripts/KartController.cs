@@ -77,14 +77,12 @@ public class KartController : TerrainDetect
 
 	void Update()
 	{
-
-		if (Input.GetKeyDown(KeyCode.F2))
-		{
-			GameManage.Cheat2();
-		}
-
 		if (GameManage.isStore)
 		{
+			if (Input.GetKeyDown(KeyCode.F2))
+			{
+				GameManage.Cheat2();
+			}
 			return;
 		}
 
@@ -105,11 +103,11 @@ public class KartController : TerrainDetect
 			GameManage.Cheat5();
 		}
 
+
 		moveInput = Input.GetAxis("Vertical");   // ↑↓ 입력값
 		turnInput = Input.GetAxis("Horizontal"); // ←→ 입력값
 
 		boostSlider.value = boostGauge / 100;
-
 
 		// 드리프트 시작/종료
 		if (Input.GetKeyDown(KeyCode.LeftShift))
@@ -157,7 +155,7 @@ public class KartController : TerrainDetect
 			StartCoroutine(Boost());
 		}
 
-		if(moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / MoveValue;
+		if (moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / MoveValue;
 	}
 	public void Startboost()
 	{

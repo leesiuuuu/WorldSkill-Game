@@ -29,6 +29,7 @@ public class EngineItemMove : ItemSelete
 	};
 	private void Awake()
 	{
+		LoadIndex();
 		TitleInfo();
 	}
 	public override void MoveLeft()
@@ -187,6 +188,7 @@ public class EngineItemMove : ItemSelete
 				break;
 
 		}
+		Move();
 	}
 	public override void SaveIndex()
 	{

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -35,6 +36,6 @@ public class MainMenu : MonoBehaviour
 	}
 	public void StartGame()
 	{
-		//게임 시작 전 스토리 설명 씬으로 이동
+		SceneManager.LoadScene("Stage1");
 	}
 }

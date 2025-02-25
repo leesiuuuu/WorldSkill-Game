@@ -90,4 +90,19 @@ public class StoreManage : MonoBehaviour
 	{
 		player.GetComponent<KartController>().MoveSpeed = 100;
 	}
+
+	//메인화면 UI 전용
+	public void SaveData()
+	{
+		Time.timeScale = 1f;
+
+		StoreClosed = true;
+
+		wim.SaveIndex();
+		eim.SaveIndex();
+		tim.SaveIndex();
+
+		GameSystem.instance.SaveItemData();
+		GameSystem.instance.SaveStoreData();
+	}
 }

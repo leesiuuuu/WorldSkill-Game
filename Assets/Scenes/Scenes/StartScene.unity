@@ -2105,6 +2105,7 @@ MonoBehaviour:
   Info: {fileID: 1106677703}
   WarnLog: {fileID: 1796020795}
   costText: {fileID: 1264890070}
+  Main: {fileID: 404062389}
 --- !u!20 &412497166
 Camera:
   m_ObjectHideFlags: 0
@@ -3823,6 +3824,8 @@ MonoBehaviour:
   tim: {fileID: 2011501118}
   player: {fileID: 0}
   MoneyUI: {fileID: 742715585}
+  StoreClosed: 0
+  FreeUse: 0
 --- !u!1 &859924495
 GameObject:
   m_ObjectHideFlags: 0
@@ -6051,7 +6054,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1214212287}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 862100422}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1214212287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6382,6 +6397,7 @@ MonoBehaviour:
   Info: {fileID: 1395712295}
   WarnLog: {fileID: 1796020795}
   costText: {fileID: 1091098027}
+  Main: {fileID: 964194974}
 --- !u!4 &1271930251
 Transform:
   m_ObjectHideFlags: 0
@@ -7198,6 +7214,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 858245663}
+        m_TargetAssemblyTypeName: StoreManage, Assembly-CSharp
+        m_MethodName: SaveData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 858245659}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
@@ -9113,6 +9141,7 @@ MonoBehaviour:
   Info: {fileID: 859924497}
   WarnLog: {fileID: 1796020795}
   costText: {fileID: 940287675}
+  Main: {fileID: 1787591461}
 --- !u!4 &2011501119
 Transform:
   m_ObjectHideFlags: 0

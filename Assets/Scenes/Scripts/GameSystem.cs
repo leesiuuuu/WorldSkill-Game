@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameSystem
@@ -76,9 +77,28 @@ public class GameSystem
 	private List<Ranking> ranks = new List<Ranking>();
 	public void Init()
 	{
-		WheelStore[0] = true;
-		EngineStore[0] = true;
-		TransmissionStore[0] = true;
+		for(int i = 0; i < 4; i++)
+		{
+			if(i == 0)
+			{
+				WheelStore[i] = true;
+				EngineStore[i] = true;
+				TransmissionStore[i] = true;
+			}
+			else
+			{
+				if(i == 3)
+				{
+					WheelStore[i] = false;
+				}
+				else
+				{
+					WheelStore[i] = false;
+					EngineStore[i] = false;
+					TransmissionStore[i] = false;
+				}
+			}
+		}
 		engine = Engine.Normal;
 		transmission = Transmission.Normal;
 		wheeltype = WheelType.Normal;
@@ -104,6 +124,12 @@ public class GameSystem
 		SaveData data = new SaveData { };
 
 		string path = Path.Combine(Application.dataPath, "playerData.json");
+
+		if (!File.Exists(path))
+		{
+			Init();
+			SaveItemData();
+		}
 		string jsonData = File.ReadAllText(path);
 
 		data = JsonUtility.FromJson<SaveData>(jsonData);
@@ -173,6 +199,7 @@ public class GameSystem
 	}
 	public void RegisterRanking(string name, int score)
 	{
+		LoadRanking();
 		Ranking rank = new Ranking
 		{
 			name = name,

@@ -1,6 +1,6 @@
 {
-    "wheeltype": "Sand",
+    "wheeltype": "Road",
     "engine": "_8Engine",
     "transmission": "AutoTransmission",
-    "money": 11000
+    "money": 6000
 }

@@ -30,6 +30,7 @@ public class TransmissionItemMove : ItemSelete
 
 	private void Awake()
 	{
+		LoadIndex();
 		TitleInfo();
 	}
 	public override void MoveLeft()
@@ -191,6 +192,7 @@ public class TransmissionItemMove : ItemSelete
 				break;
 
 		}
+		Move();
 	}
 	public override void SaveIndex()
 	{

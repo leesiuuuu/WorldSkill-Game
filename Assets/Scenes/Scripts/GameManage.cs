@@ -38,6 +38,8 @@ public class GameManage : MonoBehaviour
 	[HideInInspector]
 	public bool _RandomItem = true;
 
+	public bool GameDone = false;
+
 	public Sprite ItemSeletedSprite;
 	private void Awake()
 	{
@@ -80,7 +82,7 @@ public class GameManage : MonoBehaviour
 	{
 		Debug.Log("Game is Done!");
 		timer.StopCount();
-		controller.enabled = false;
+		GameDone = true;
 		Camera.transform.position = CameraPos;
 		Camera.transform.rotation = Quaternion.Euler(CameraRot);
 		Camera.GetComponent<CameraFollowPlayer>().enabled = false;
@@ -130,13 +132,14 @@ public class GameManage : MonoBehaviour
 	{
 		PlayerPrefs.SetInt("Cheat3", 1);
 		PlayerPrefs.Save();
+		Time.timeScale = 1f;
 		StageLoad(SceneManager.GetActiveScene().name);
 	}
 
 	public void Cheat4()
 	{
+		controller.gameObject.GetComponent<Rigidbody>().MovePosition(SkipPos.transform.position);
 		StartCoroutine(_cheatLog("치트 4 : 다음 스테이지 이동"));
-		controller.gameObject.transform.position = SkipPos.transform.position;
 	}
 
 	public void Cheat5()
