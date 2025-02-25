@@ -1,4 +1,5 @@
 using System.Collections;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -110,6 +111,9 @@ public class KartController : TerrainDetect
 				}
 			}
 		}
+
+		//치트키
+		CheatKey();
 
 		if (Input.GetKeyDown(KeyCode.Space))
 		{
@@ -352,6 +356,18 @@ public class KartController : TerrainDetect
 			rb.AddForce(-rb.velocity.normalized * 500f, ForceMode.Impulse);
 			rb.AddForce(-rb.transform.forward * 50f);
 			Destroy(n, 0.4f);
+		}
+	}
+
+	void CheatKey()
+	{
+		if (Input.GetKeyDown(KeyCode.F1)) { }
+		else if (Input.GetKeyDown(KeyCode.F2)) { }
+		else if (Input.GetKeyDown(KeyCode.F3)) { }
+		else if (Input.GetKeyDown(KeyCode.F4)) { }
+		else if (Input.GetKeyDown(KeyCode.F5))
+		{
+			GameManage.Cheat5();
 		}
 	}
 

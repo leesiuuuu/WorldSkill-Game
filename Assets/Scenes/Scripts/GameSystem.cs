@@ -265,29 +265,4 @@ public class GameSystem
 		else throw new ArgumentException($"지원되지 않는 열거형 타입입니다! \n열거형 타입 : {nameof(TEnum)}");
 	}
 
-	public void Cheat1()
-	{
-
-	}
-	
-	public void Cheat2()
-	{
-
-	}
-
-	public void Cheat3(int StageNum)
-	{
-
-	}
-
-	public void Cheat4()
-	{
-		
-	}
-
-	public void Cheat5()
-	{
-
-	}
-
 }

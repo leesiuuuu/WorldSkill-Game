@@ -1,5 +1,6 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManage : MonoBehaviour
 {
@@ -23,6 +24,12 @@ public class GameManage : MonoBehaviour
 	public Vector3 CameraRot;
 	public bool PlayerWin = true;
 	public GameObject ResultPanel;
+
+	[Header("Cheat")]
+	public Text CheatLog;
+	public GameObject Cheat5Log;
+
+	private bool Pause = false;
 
 	private void OnEnable()
 	{
@@ -77,12 +84,41 @@ public class GameManage : MonoBehaviour
 	public Sprite RendomItem()
 	{
 		ItemPanel.SetActive(true);
-		int rand = Random.Range(0, 5);
+		int rand = Random.Range(0, 6);
 		return ItemImage[rand];
 	}
 
 	public void StageLoad(string name)
 	{
 		SceneManager.LoadScene(name);
+	}
+
+	public void Cheat1()
+	{
+
+	}
+
+	public void Cheat2()
+	{
+
+	}
+
+	public void Cheat3(int StageNum)
+	{
+		StageLoad(SceneManager.GetActiveScene().name);
+	}
+
+	public void Cheat4()
+	{
+		string name = SceneManager.GetActiveScene().name;
+		int count = int.Parse(name[name.Length - 1].ToString()) + 1;
+		StageLoad(name.Remove(name.Length - 1) + count);
+	}
+
+	public void Cheat5()
+	{
+		Pause = !Pause;
+		Cheat5Log.SetActive(Pause);
+		Time.timeScale = Pause ? 0 : 1;
 	}
 }

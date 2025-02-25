@@ -10131,6 +10131,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e29f93bb182d3c341a06becf854bc948, type: 3}
   - {fileID: 21300000, guid: 0f1b5ef428d1bfd4bb01d47e05c66467, type: 3}
   - {fileID: 21300000, guid: fbc957fce916f954982affd6850a3793, type: 3}
+  - {fileID: 21300000, guid: f863bab3a2b14a946afe9b942e2d9655, type: 3}
   ItemPanel: {fileID: 35820959}
   Camera: {fileID: 1155416946}
   CameraPos: {x: -374.46, y: 39.98, z: 392.76}
@@ -17838,6 +17839,7 @@ MonoBehaviour:
   TimerCount: 0
   CountDownObj: {fileID: 8565469690928858699, guid: 78c037ee0981f084fbb59bbae5c58d03, type: 3}
   TimerText: {fileID: 1523005193}
+  BGM: {fileID: 1130071262734301422}
 --- !u!1 &1579606661
 GameObject:
   m_ObjectHideFlags: 0
@@ -28843,7 +28845,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &1769117937356882130
 MeshFilter:
   m_ObjectHideFlags: 0

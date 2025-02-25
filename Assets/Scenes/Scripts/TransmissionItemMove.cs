@@ -18,12 +18,14 @@ public class TransmissionItemMove : ItemSelete
 	private GameObject WarnLog;
 	[SerializeField]
 	private Text costText;
+	[SerializeField]
+	private Image Main;
 
 	private int[] costs =
 {
 		0,
-		5000,
-		10000
+		20000,
+		50000
 	};
 
 	private void Awake()
@@ -53,6 +55,10 @@ public class TransmissionItemMove : ItemSelete
 	}
 	private void Update()
 	{
+		if (storeManage.StoreClosed)
+		{
+			return;
+		}
 		if(costs[index] == 0)
 		{
 			costText.text = "FREE";
@@ -73,11 +79,17 @@ public class TransmissionItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f);
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.Transmission>().Equals(GameSystem.Transmission.EnforcedTransmission))
@@ -85,11 +97,17 @@ public class TransmissionItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 1:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.Transmission>().Equals(GameSystem.Transmission.AutoTransmission))
@@ -97,11 +115,17 @@ public class TransmissionItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f);
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 2:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 				}
 			}
 		}
@@ -177,5 +201,13 @@ public class TransmissionItemMove : ItemSelete
 	{
 		if(PlayerPrefs.HasKey("index_transmission"))
 		index = PlayerPrefs.GetInt("index_transmission");
+	}
+	private void ChangeColor(float value)
+	{
+		Main.color = new Color(
+			Main.color.r,
+			Main.color.g,
+			Main.color.b,
+			value);
 	}
 }

@@ -18,12 +18,14 @@ public class EngineItemMove : ItemSelete
 	private GameObject WarnLog;
 	[SerializeField]
 	private Text costText;
+	[SerializeField]
+	private Image Main;
 
 	private int[] costs =
 {
 		0,
-		2000,
-		4000
+		1000,
+		18000
 	};
 	private void Awake()
 	{
@@ -74,11 +76,17 @@ public class EngineItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.Engine>().Equals(GameSystem.Engine._6Engine))
@@ -86,11 +94,17 @@ public class EngineItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 1:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.Engine>().Equals(GameSystem.Engine._8Engine))
@@ -98,11 +112,17 @@ public class EngineItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 2:
-						button.text = "Equipped"; break;
+						button.text = "Equipped"; 
+						ChangeColor(0.5f);
+						break;
 				}
 			}
 		}
@@ -177,5 +197,13 @@ public class EngineItemMove : ItemSelete
 	{
 		if (PlayerPrefs.HasKey("index_engine"))
 			index = PlayerPrefs.GetInt("index_engine");
+	}
+	private void ChangeColor(float value)
+	{
+		Main.color = new Color(
+			Main.color.r,
+			Main.color.g,
+			Main.color.b,
+			value);
 	}
 }

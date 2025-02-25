@@ -19,17 +19,17 @@ public class WheelItemMove : ItemSelete
 	private GameObject WarnLog;
 	[SerializeField]
 	private Text costText;
+	[SerializeField]
+	private Image Main;
 
 	private int[] costs = 
 	{
 		0,
-		2000,
-		3000,
-		5000
+		5000,
+		8000,
+		10000
 	};
 
-	//테스트 코드
-	//public GameManage gm;
 	private void Awake()
 	{
 		TitleInfo();
@@ -57,11 +57,6 @@ public class WheelItemMove : ItemSelete
 	}
 	private void Update()
 	{
-/*		//테스트 코드
-		if (Input.GetKeyDown(KeyCode.P))
-		{
-			gm.OpenStore();
-		}*/
 
 		if (costs[index] == 0)
 		{
@@ -84,13 +79,21 @@ public class WheelItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f);
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f);
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 3:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.WheelType>().Equals(GameSystem.WheelType.Sand))
@@ -98,13 +101,21 @@ public class WheelItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 1:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 3:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.WheelType>().Equals(GameSystem.WheelType.Mountain))
@@ -112,13 +123,21 @@ public class WheelItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 2:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 					case 3:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 				}
 			}
 			else if (GameSystem.instance.GetItemData<GameSystem.WheelType>().Equals(GameSystem.WheelType.Road))
@@ -126,13 +145,21 @@ public class WheelItemMove : ItemSelete
 				switch (index)
 				{
 					case 0:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 1:
-						button.text = "Equip"; break;
+						button.text = "Equip";
+						ChangeColor(1f); 
+						break;
 					case 2:
-						button.text = "Equip"; break;
+						button.text = "Equip"; 
+						ChangeColor(1f);
+						break;
 					case 3:
-						button.text = "Equipped"; break;
+						button.text = "Equipped";
+						ChangeColor(0.5f); 
+						break;
 				}
 			}
 		}
@@ -217,5 +244,14 @@ public class WheelItemMove : ItemSelete
 	{
 		if (PlayerPrefs.HasKey("index_wheel"))
 			index = PlayerPrefs.GetInt("index_wheel");
+	}
+
+	private void ChangeColor(float value)
+	{
+		Main.color = new Color(
+			Main.color.r,
+			Main.color.g,
+			Main.color.b,
+			value);
 	}
 }

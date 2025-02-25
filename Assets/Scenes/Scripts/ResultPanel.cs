@@ -22,7 +22,14 @@ public class ResultPanel : MonoBehaviour
 			GameSystem.instance.Score += score;
 			Debug.Log("Current Score : " + GameSystem.instance.Score);
 			Score.text = $"Score : {score.ToString("000000")}";
-			buttonText.text = "Next Stage";
+			if (SceneManager.GetActiveScene().name.Equals("Stage3"))
+			{
+				buttonText.text = "Next";
+			}
+			else
+			{
+				buttonText.text = "Next Stage";
+			}
 			Main.gameObject.SetActive(false);
 			NextStage.onClick.RemoveAllListeners();
 			NextStage.onClick.AddListener(() =>

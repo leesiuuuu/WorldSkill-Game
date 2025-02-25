@@ -10,12 +10,25 @@ public class ItemLog : MonoBehaviour
 	private void OnEnable()
 	{
 		ItemImage.sprite = gm.RendomItem();
-		Title.text = ItemImage.sprite.name + " 획득!";
-		store.ItemRespond(ItemImage.sprite.name);
-		Invoke("nnn", 1f);
+		if (ItemImage.sprite.name.Equals("Store"))
+		{
+			Title.text = "상점 이동";
+			Invoke("Go", 1f);
+		}
+		else
+		{
+			Title.text = ItemImage.sprite.name + " 획득!";
+			store.ItemRespond(ItemImage.sprite.name);
+			Invoke("nnn", 1f);
+		}
 	}
 	private void nnn()
 	{
 		gameObject.SetActive(false);
+	}
+	private void Go()
+	{
+		gameObject.SetActive(false);
+		gm.OpenStore();
 	}
 }

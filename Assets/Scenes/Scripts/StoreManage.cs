@@ -14,9 +14,13 @@ public class StoreManage : MonoBehaviour
 	public GameObject player;
 
 	public Text MoneyUI;
+
+	public bool StoreClosed = false;
 	private void OnEnable()
 	{
 		Time.timeScale = 0f;
+
+		StoreClosed = false;
 
 		GameSystem.instance.LoadItemData();
 		GameSystem.instance.LoadStoreData();
@@ -38,6 +42,8 @@ public class StoreManage : MonoBehaviour
 	public void StoreDone()
 	{
 		Time.timeScale = 1f;
+
+		StoreClosed = true;
 
 		wim.SaveIndex();
 		eim.SaveIndex();

@@ -14,6 +14,9 @@ public class Timer : MonoBehaviour
     [SerializeField]
     private Text TimerText;
 
+    [SerializeField]
+    private GameObject BGM;
+
     private GameObject obj;
 
     private bool Counting = true;
@@ -48,14 +51,21 @@ public class Timer : MonoBehaviour
         obj.transform.SetParent(GameObject.Find("Canvas").transform, false);
         
         Text text = obj.GetComponent<Text>();
-        text.text = "3";
+        CountDownSound cds = text.GetComponent<CountDownSound>();
+
+		cds.SoundLoad();
+		text.text = "3";
         yield return new WaitForSeconds(1);
+		cds.SoundLoad();
 		text.text = "2";
 		yield return new WaitForSeconds(1);
+		cds.SoundLoad();
 		text.text = "1";
-        yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(1);
         text.text = "GO!";
-        onComplete?.Invoke();
+		cds.SoundLoad();
+        BGM.SetActive(true);
+		onComplete?.Invoke();
         yield break;
     }
     public IEnumerator Disappear(float Delay)
