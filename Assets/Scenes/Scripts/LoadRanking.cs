@@ -11,6 +11,7 @@ public class LoadRanking : MonoBehaviour
 	public Text Score;
 	private void OnEnable()
 	{
+		GameSystem.instance.UpdateRanking();
 		RankLoaded(_rank);
 	}
 	public void RankLoaded(int rank)

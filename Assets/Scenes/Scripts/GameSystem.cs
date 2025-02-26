@@ -103,6 +103,7 @@ public class GameSystem
 		transmission = Transmission.Normal;
 		wheeltype = WheelType.Normal;
 		SaveItemData();
+		SaveStoreData();
 	}
 	public void SaveItemData()
 	{

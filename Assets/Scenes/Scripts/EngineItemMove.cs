@@ -21,27 +21,40 @@ public class EngineItemMove : ItemSelete
 	[SerializeField]
 	private Image Main;
 
+	public AudioClip UIMoveSound;
+	public AudioClip UISeleteSound;
+	public AudioClip UIWarnSound;
+
 	private int[] costs =
 {
 		0,
-		1000,
+		10000,
 		18000
 	};
 	private void Awake()
 	{
 		LoadIndex();
 		TitleInfo();
+		Move();
 	}
 	public override void MoveLeft()
 	{
-		if (index > 0) --index;
+		if (index > 0) 
+		{
+			--index;
+			storeManage.sound.SoundPlay("UIMove", UIMoveSound);
+		}
 		Move();
 		TitleInfo();
 	}
 
 	public override void MoveRight()
 	{
-		if (index < MAX - 1) ++index;
+		if (index < MAX - 1)
+		{
+			++index;
+			storeManage.sound.SoundPlay("UIMove", UIMoveSound);
+		}
 		Move();
 		TitleInfo();
 	}
@@ -131,8 +144,26 @@ public class EngineItemMove : ItemSelete
 
 	public void BuyItem()
 	{
-		if (GameSystem.instance.EngineStore[index])
+		if (storeManage.FreeUse)
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
+			GameSystem.instance.EngineStore[index] = true;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.Engine>(GameSystem.Engine.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.Engine>(GameSystem.Engine._6Engine); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.Engine>(GameSystem.Engine._8Engine); break;
+			}
+			storeManage.FreeUse = false;
+			storeManage.UpdateMoneyUI();
+			return;
+		}
+		else if (GameSystem.instance.EngineStore[index])
+		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			switch (index)
 			{
 				case 0:
@@ -145,6 +176,7 @@ public class EngineItemMove : ItemSelete
 		}
 		else if (costs[index] <= GameSystem.instance.Money && !GameSystem.instance.EngineStore[index])
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			GameSystem.instance.EngineStore[index] = true;
 			switch (index)
 			{
@@ -165,6 +197,7 @@ public class EngineItemMove : ItemSelete
 	}
 	private IEnumerator WarnLogAppear()
 	{
+		storeManage.sound.SoundPlay("Warn", UIWarnSound);
 		WarnLog.SetActive(true);
 		yield return new WaitForSecondsRealtime(0.5f);
 		WarnLog.SetActive(false);

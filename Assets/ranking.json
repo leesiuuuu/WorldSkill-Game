@@ -1,12 +1,32 @@
 {
     "ranking": [
         {
+            "name": "ㄹㅈㄷ발생",
+            "score": 1244698
+        },
+        {
+            "name": "NEIGGW",
+            "score": 946609
+        },
+        {
+            "name": "IMBEST",
+            "score": 894303
+        },
+        {
+            "name": "Final",
+            "score": 748307
+        },
+        {
             "name": "LEESIU",
             "score": 405219
         },
         {
             "name": "Hellow",
             "score": 14977
+        },
+        {
+            "name": "Thanks",
+            "score": 0
         }
     ]
 }

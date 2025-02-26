@@ -15,6 +15,7 @@ public class MainMenu : MonoBehaviour
 	public void GoMain()
 	{
 		StartCoroutine(move(1, 0.5f));
+		GameSystem.instance.UpdateRanking();
 	}
 
 	private IEnumerator move(int d, float duration)
@@ -36,6 +37,6 @@ public class MainMenu : MonoBehaviour
 	}
 	public void StartGame()
 	{
-		SceneManager.LoadScene("Stage1");
+		SceneManager.LoadScene("StoryScene");
 	}
 }

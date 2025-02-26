@@ -11,6 +11,8 @@ public class StoreManage : MonoBehaviour
 	public EngineItemMove eim;
 	public TransmissionItemMove tim;
 
+	public SoundManage sound;
+
 	public GameObject player;
 
 	public Text MoneyUI;
@@ -20,6 +22,8 @@ public class StoreManage : MonoBehaviour
 	public bool FreeUse = false;
 	private void OnEnable()
 	{
+		gm.BGM.volume = 0.2f;
+
 		Time.timeScale = 0f;
 
 		StoreClosed = false;
@@ -43,6 +47,8 @@ public class StoreManage : MonoBehaviour
 	}
 	public void StoreDone()
 	{
+		gm.BGM.volume = 1f;
+
 		Time.timeScale = 1f;
 
 		StoreClosed = true;

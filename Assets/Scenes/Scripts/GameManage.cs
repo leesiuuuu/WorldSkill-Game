@@ -30,9 +30,11 @@ public class GameManage : MonoBehaviour
 	[Header("Cheat")]
 	public GameObject CheatCanvas;
 	public Text CheatLog;
+	public GameObject CheatLogObj;
 	public GameObject Cheat5Log;
 	public GameObject SkipPos;
 	public GameObject ItemSelete;
+	public AudioSource BGM;
 
 	private bool Pause = false;
 	[HideInInspector]
@@ -119,6 +121,7 @@ public class GameManage : MonoBehaviour
 	public void Cheat1()
 	{
 		Time.timeScale = 0f;
+		BGM.volume = 0.2f;
 		ItemSelete.SetActive(true);
 	}
 
@@ -154,6 +157,7 @@ public class GameManage : MonoBehaviour
 		_RandomItem = false;
 		ItemSeletedSprite = ItemByName(index);
 		Time.timeScale = 1f;
+		BGM.volume = 0.7f;
 		ItemSelete.SetActive(false);
 		ItemPanel.SetActive(true);
 		_RandomItem = true;
@@ -161,10 +165,10 @@ public class GameManage : MonoBehaviour
 	
 	public IEnumerator _cheatLog(string value)
 	{
-		CheatLog.gameObject.SetActive(true);
+		CheatLogObj.SetActive(true);
 		CheatLog.text = value;
 		yield return new WaitForSecondsRealtime(1f);
 		CheatLog.text = "";
-		CheatLog.gameObject.SetActive(false);
+		CheatLogObj.SetActive(false);
 	}
 }

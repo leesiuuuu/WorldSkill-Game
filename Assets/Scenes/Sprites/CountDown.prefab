@@ -94,7 +94,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 2
   Loop: 0
   Mute: 0
   Spatialize: 0
@@ -189,6 +189,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbaac35c37e8ea346a538ea0179cd050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Ready: {fileID: 8300000, guid: 5b3fc5310a8ddfb4fb6741a556002e1c, type: 3}
+  Ready: {fileID: 8300000, guid: d83bd7207bb708946b69c3d35d177b67, type: 3}
   Go: {fileID: 8300000, guid: a5427f1c04499674da2508c2fd7adb14, type: 3}
   AS: {fileID: -5522153516001275291}

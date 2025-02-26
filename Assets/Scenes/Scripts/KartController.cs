@@ -52,9 +52,17 @@ public class KartController : TerrainDetect
 
 	[Header("Game Management")]
 	public GameManage GameManage;
+	public StoreManage storeManage;
 
 	[Header("Map Setting")]
 	public GameSystem.WheelType _wheelType;
+
+	[Header("Audios")]
+	public AudioClip Boost1;
+	public AudioClip Boost2;
+	public AudioClip Hit;
+	public AudioSource Drift;
+	public AudioSource Move;
 
 	private float BoostSpeed = 1f;
 
@@ -72,6 +80,7 @@ public class KartController : TerrainDetect
 	private Vector3 moveSpeed;
 	void Awake()
 	{
+		Move.ignoreListenerPause = true;
 		rb = GetComponent<Rigidbody>();
 	}
 
@@ -79,6 +88,7 @@ public class KartController : TerrainDetect
 	{
 		if (GameManage.isStore)
 		{
+			Move.gameObject.SetActive(false);
 			if (Input.GetKeyDown(KeyCode.F2))
 			{
 				GameManage.Cheat2();
@@ -108,57 +118,66 @@ public class KartController : TerrainDetect
 		turnInput = Input.GetAxis("Horizontal"); // ←→ 입력값
 
 		boostSlider.value = boostGauge / 100;
-
-		// 드리프트 시작/종료
-		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
-			StartDrift();
-		}
-		if (Input.GetKeyUp(KeyCode.LeftShift))
-		{
-			EndDrift();
-		}
-
-		// 드리프트 중 부스터 게이지 충전
-		if (isDrifting)
-		{
-			if (isBoosting)
+			if (!GameManage.isStore)
 			{
-				boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 50;
+				Move.gameObject.SetActive(true);
+				Move.volume = Mathf.Abs(moveInput);
 			}
-			else
+
+			// 드리프트 시작/종료
+			if (Input.GetKeyDown(KeyCode.LeftShift))
 			{
-				if (boostGauge <= 100f)
+				StartDrift();
+			}
+			if (Input.GetKeyUp(KeyCode.LeftShift))
+			{
+				EndDrift();
+			}
+
+			// 드리프트 중 부스터 게이지 충전
+			if (isDrifting)
+			{
+				if (isBoosting)
 				{
-					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / DriftValue;
+					boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / 50;
+				}
+				else
+				{
+					if (boostGauge <= 100f)
+					{
+						boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / DriftValue;
+					}
 				}
 			}
-		}
 
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			frontLeftWheel.brakeTorque = 5000f;
-			frontRightWheel.brakeTorque = 5000f;
-			backLeftWheel.brakeTorque = 5000f;
-			backRightWheel.brakeTorque = 5000f;
-		}
-		if (Input.GetKeyUp(KeyCode.Space))
-		{
-			frontLeftWheel.brakeTorque = 0f;
-			frontRightWheel.brakeTorque = 0f;
-			backLeftWheel.brakeTorque = 0f;
-			backRightWheel.brakeTorque = 0f;
-		}
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				frontLeftWheel.brakeTorque = 5000f;
+				frontRightWheel.brakeTorque = 5000f;
+				backLeftWheel.brakeTorque = 5000f;
+				backRightWheel.brakeTorque = 5000f;
+			}
+			if (Input.GetKeyUp(KeyCode.Space))
+			{
+				frontLeftWheel.brakeTorque = 0f;
+				frontRightWheel.brakeTorque = 0f;
+				backLeftWheel.brakeTorque = 0f;
+				backRightWheel.brakeTorque = 0f;
+			}
 
-		if (Input.GetKeyDown(KeyCode.LeftControl) && boostGauge > 100 && !isBoosting)
-		{
-			StartCoroutine(Boost());
-		}
+			if (Input.GetKeyDown(KeyCode.LeftControl) && boostGauge > 100 && !isBoosting)
+			{
+				StartCoroutine(Boost());
+			}
 
-		if (moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / MoveValue;
+			if (moveInput != 0 && boostGauge <= 100) boostGauge += Time.deltaTime * (backRightWheel.motorTorque >= 0 ? backRightWheel.motorTorque : 0) / MoveValue;
+		}
 	}
 	public void Startboost()
 	{
+		storeManage.sound.SoundPlay("Boost", Boost1);
+		storeManage.sound.SoundPlay("Boost2", Boost2);
 		frontLeftWheel.motorTorque = 100f;
 		frontRightWheel.motorTorque = 100f;
 		backLeftWheel.motorTorque = 100f;
@@ -213,6 +232,8 @@ public class KartController : TerrainDetect
 	public IEnumerator Boost()
 	{
 		isBoosting = true;
+		storeManage.sound.SoundPlay("Boost", Boost1);
+		storeManage.sound.SoundPlay("Boost2", Boost2);
 		BoostSpeed = MAX_BOOST;
 		boostGauge = 0;
 		cmf.distance = 14;
@@ -287,6 +308,7 @@ public class KartController : TerrainDetect
 	//드리프트 상태 시작
 	void StartDrift()
 	{
+		Drift.Play();
 		isDrifting = true;
 		AdjustWheelFriction(driftFactor);
 	}
@@ -294,6 +316,7 @@ public class KartController : TerrainDetect
 	//드리프트 상태 끝내기
 	void EndDrift()
 	{
+		Drift.Stop();
 		isDrifting = false;
 		AdjustWheelFriction(1.5f); // 마찰력 원래대로 복구
 	}
@@ -326,6 +349,7 @@ public class KartController : TerrainDetect
 		Vector3 normal = contact.normal;
 		Vector3 collisionDirection = -normal;
 		Debug.Log($"{collision.gameObject.name}과 충돌함");
+		storeManage.sound.SoundPlay("Hit", Hit);
 
 		if(Vector3.Dot(collisionDirection, new Vector3(0,0,-1)) > 0.5f)
 		{

@@ -10,6 +10,8 @@ TagManager:
   - Out
   - ItemCube
   - Enemy
+  - NPC
+  - Col
   layers:
   - Default
   - TransparentFX

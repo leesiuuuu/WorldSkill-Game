@@ -23,6 +23,10 @@ public class WheelItemMove : ItemSelete
 	[SerializeField]
 	private Image Main;
 
+	public AudioClip UIMoveSound;
+	public AudioClip UISeleteSound;
+	public AudioClip UIWarnSound;
+
 	private int[] costs = 
 	{
 		0,
@@ -35,17 +39,26 @@ public class WheelItemMove : ItemSelete
 	{
 		LoadIndex();
 		TitleInfo();
+		Move();
 	}
 	public override void MoveLeft()
 	{
-		if(index > 0) --index;
+		if (index > 0) 
+		{
+			--index;
+			storeManage.sound.SoundPlay("UIMove", UIMoveSound);
+		}
 		Move();
 		TitleInfo();
 	}
 
 	public override void MoveRight()
 	{
-		if (index < MAX-1) ++index;
+		if (index < MAX - 1)
+		{
+			++index;
+			storeManage.sound.SoundPlay("UIMove", UIMoveSound);
+		}
 		Move();
 		TitleInfo();
 	}
@@ -171,6 +184,7 @@ public class WheelItemMove : ItemSelete
 	{
 		if (storeManage.FreeUse)
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			GameSystem.instance.WheelStore[index] = true;
 			switch (index)
 			{
@@ -190,6 +204,7 @@ public class WheelItemMove : ItemSelete
 
 		else if (GameSystem.instance.WheelStore[index])
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			switch (index)
 			{
 				case 0:
@@ -204,6 +219,7 @@ public class WheelItemMove : ItemSelete
 		}
 		else if (costs[index] <= GameSystem.instance.Money && !GameSystem.instance.WheelStore[index])
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			GameSystem.instance.WheelStore[index] = true;
 			switch (index)
 			{
@@ -226,6 +242,7 @@ public class WheelItemMove : ItemSelete
 	}
 	private IEnumerator WarnLogAppear()
 	{
+		storeManage.sound.SoundPlay("Warn", UIWarnSound);
 		WarnLog.SetActive(true);
 		yield return new WaitForSecondsRealtime(0.5f);
 		WarnLog.SetActive(false);

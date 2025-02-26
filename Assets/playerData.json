@@ -1,6 +1,6 @@
 {
-    "wheeltype": "Road",
-    "engine": "_8Engine",
-    "transmission": "AutoTransmission",
-    "money": 6000
+    "wheeltype": "Normal",
+    "engine": "Normal",
+    "transmission": "Normal",
+    "money": 311100
 }

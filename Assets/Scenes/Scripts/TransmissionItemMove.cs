@@ -21,6 +21,10 @@ public class TransmissionItemMove : ItemSelete
 	[SerializeField]
 	private Image Main;
 
+	public AudioClip UIMoveSound;
+	public AudioClip UISeleteSound;
+	public AudioClip UIWarnSound;
+
 	private int[] costs =
 {
 		0,
@@ -32,17 +36,26 @@ public class TransmissionItemMove : ItemSelete
 	{
 		LoadIndex();
 		TitleInfo();
+		Move();
 	}
 	public override void MoveLeft()
 	{
-		if (index > 0) --index;
+		if (index > 0) 
+		{
+			--index;
+			storeManage.sound.SoundPlay("UIMove", UIMoveSound);
+		}
 		Move();
 		TitleInfo();
 	}
 
 	public override void MoveRight()
 	{
-		if (index < MAX - 1) ++index;
+		if (index < MAX - 1)
+		{
+			++index;
+			storeManage.sound.SoundPlay("UIMove", UIMoveSound);
+		}
 		Move();
 		TitleInfo();
 	}
@@ -134,8 +147,26 @@ public class TransmissionItemMove : ItemSelete
 
 	public void BuyItem()
 	{
-		if (GameSystem.instance.TransmissionStore[index])
+		if (storeManage.FreeUse)
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
+			GameSystem.instance.TransmissionStore[index] = true;
+			switch (index)
+			{
+				case 0:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.Normal); break;
+				case 1:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.EnforcedTransmission); break;
+				case 2:
+					GameSystem.instance.SetItemData<GameSystem.Transmission>(GameSystem.Transmission.AutoTransmission); break;
+			}
+			storeManage.FreeUse = false;
+			storeManage.UpdateMoneyUI();
+			return;
+		}
+		else if (GameSystem.instance.TransmissionStore[index])
+		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			switch (index)
 			{
 				case 0:
@@ -148,6 +179,7 @@ public class TransmissionItemMove : ItemSelete
 		}
 		else if(!GameSystem.instance.TransmissionStore[index] && costs[index] <= GameSystem.instance.Money)
 		{
+			storeManage.sound.SoundPlay("Buy", UISeleteSound);
 			GameSystem.instance.TransmissionStore[index] = true;
 			switch (index)
 			{
@@ -163,11 +195,13 @@ public class TransmissionItemMove : ItemSelete
 		}
 		else
 		{
+
 			StartCoroutine(WarnLogAppear());
 		}
 	}
 	private IEnumerator WarnLogAppear()
 	{
+		storeManage.sound.SoundPlay("Warn", UIWarnSound);
 		WarnLog.SetActive(true);
 		yield return new WaitForSecondsRealtime(0.5f);
 		WarnLog.SetActive(false);
@@ -192,7 +226,6 @@ public class TransmissionItemMove : ItemSelete
 				break;
 
 		}
-		Move();
 	}
 	public override void SaveIndex()
 	{

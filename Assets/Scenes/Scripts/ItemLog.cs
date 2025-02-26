@@ -7,8 +7,10 @@ public class ItemLog : MonoBehaviour
 	public StoreManage store;
 	public Image ItemImage;
 	public Text Title;
+	public AudioClip ItemGetSound;
 	private void OnEnable()
 	{
+		store.sound.SoundPlay("Item", ItemGetSound);
 		if (gm._RandomItem)
 		{
 			ItemImage.sprite = gm.RendomItem();
